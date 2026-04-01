@@ -1,67 +1,525 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Strategic Client Accounts - Pubity Group</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0}header{background:linear-gradient(135deg,#1e293b,#0f172a);border-bottom:1px solid #334155;padding:32px 40px}.logo{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#64748b;margin-bottom:12px}h1{font-size:28px;font-weight:700;color:#f8fafc}header p{color:#94a3b8;margin-top:6px;font-size:14px}.meta{display:flex;gap:16px;margin-top:16px;flex-wrap:wrap}.meta span{font-size:12px;color:#64748b;background:#1e293b;border:1px solid #334155;padding:4px 12px;border-radius:20px}main{max-width:1100px;margin:0 auto;padding:40px}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}.sc{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px 24px}.lbl{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#64748b;margin-bottom:8px}.val{font-size:28px;font-weight:700;color:#f8fafc}.sub{font-size:12px;color:#64748b;margin-top:4px}.g .val{color:#4ade80}.b .val{color:#60a5fa}.a .val{color:#fbbf24}h2{font-size:16px;font-weight:600;color:#cbd5e1;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #1e293b}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:48px}.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px 24px}.ch{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}.an{font-size:17px;font-weight:700;color:#f8fafc}.badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}.hot{background:#fef3c7;color:#92400e}.grow{background:#d1fae5;color:#065f46}.stab{background:#dbeafe;color:#1e40af}.dev{background:#ede9fe;color:#5b21b6}.ear{background:#f1f5f9;color:#475569}.act{background:#e0f2fe;color:#075985}.cs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.sl{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#64748b;margin-bottom:3px}.sv{font-size:16px;font-weight:700}.won{color:#4ade80}.pipe{color:#60a5fa}.rel{font-size:12px;color:#94a3b8;margin-bottom:14px}.dl{display:flex;align-items:center;gap:8px;background:#0f172a;border:1px solid #334155;border-radius:8px;padding:8px 12px;text-decoration:none;color:#94a3b8;font-size:12px}.tw{background:#1e293b;border:1px solid #334155;border-radius:12px;overflow:hidden;margin-bottom:48px}table{width:100%;border-collapse:collapse}th{background:#0f172a;text-align:left;padding:12px 16px;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#64748b}td{padding:12px 16px;border-top:1px solid #0f172a;font-size:13px;color:#cbd5e1}tr:last-child td{font-weight:700;color:#f8fafc;background:#1a2540}.wv{color:#4ade80;font-weight:600}.pv{color:#60a5fa;font-weight:600}.guide{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:24px;margin-bottom:40px}.guide h3{font-size:14px;font-weight:600;color:#f8fafc;margin-bottom:12px}.steps{list-style:none;counter-reset:step}.steps li{counter-increment:step;display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #0f172a;font-size:13px;color:#94a3b8;align-items:flex-start}.steps li:last-child{border-bottom:none}.steps li::before{content:counter(step);background:#334155;color:#cbd5e1;min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}.su{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:11px;color:#60a5fa;word-break:break-all;margin-top:12px}footer{text-align:center;color:#475569;font-size:12px;padding:32px 40px;border-top:1px solid #1e293b}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strategic Client Accounts â Pubity Group</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+
+    header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-bottom: 1px solid #334155; padding: 32px 40px; }
+    .logo { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #64748b; margin-bottom: 12px; }
+    header h1 { font-size: 28px; font-weight: 700; color: #f8fafc; }
+    header p { color: #94a3b8; margin-top: 6px; font-size: 14px; }
+    .meta { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+    .meta span { font-size: 12px; color: #64748b; background: #1e293b; border: 1px solid #334155; padding: 4px 12px; border-radius: 20px; }
+
+    main { max-width: 1200px; margin: 0 auto; padding: 40px; }
+
+    .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+    .summary-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px 24px; }
+    .summary-card .label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #64748b; margin-bottom: 8px; }
+    .summary-card .value { font-size: 28px; font-weight: 700; color: #f8fafc; }
+    .summary-card .sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+    .summary-card.green .value { color: #4ade80; }
+    .summary-card.blue .value { color: #60a5fa; }
+    .summary-card.amber .value { color: #fbbf24; }
+    .summary-card.purple .value { color: #a78bfa; }
+
+    h2 { font-size: 14px; font-weight: 700; color: #cbd5e1; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #1e293b; }
+
+    .accounts { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 48px; }
+    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px 24px; transition: border-color 0.2s; }
+    .card:hover { border-color: #475569; }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+    .account-name { font-size: 17px; font-weight: 700; color: #f8fafc; }
+    .badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+    .badge.hot { background: #fef3c7; color: #92400e; }
+    .badge.growing { background: #d1fae5; color: #065f46; }
+    .badge.stable { background: #dbeafe; color: #1e40af; }
+    .badge.developing { background: #ede9fe; color: #5b21b6; }
+    .badge.early { background: #f1f5f9; color: #475569; }
+    .badge.active { background: #e0f2fe; color: #075985; }
+    .badge.building { background: #fef9c3; color: #713f12; }
+    .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .stat-item .stat-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #64748b; margin-bottom: 3px; }
+    .stat-item .stat-value { font-size: 16px; font-weight: 700; color: #e2e8f0; }
+    .stat-item .stat-value.won { color: #4ade80; }
+    .stat-item .stat-value.pipeline { color: #60a5fa; }
+    .stat-item .stat-value.tbd { color: #94a3b8; font-size: 13px; }
+    .relationship { font-size: 12px; color: #94a3b8; margin-bottom: 14px; }
+    .card-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .doc-link { display: flex; align-items: center; gap: 6px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 7px 11px; text-decoration: none; color: #94a3b8; font-size: 11px; font-weight: 600; transition: all 0.2s; flex: 1; min-width: 110px; }
+    .doc-link:hover { border-color: #60a5fa; color: #60a5fa; }
+    .doc-link.slack:hover { border-color: #a78bfa; color: #a78bfa; }
+    .doc-link svg { flex-shrink: 0; }
+
+    /* Snapshot table */
+    .table-wrap { background: #1e293b; border: 1px solid #334155; border-radius: 12px; overflow: hidden; margin-bottom: 48px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #0f172a; text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #64748b; }
+    td { padding: 12px 16px; border-top: 1px solid #0f172a; font-size: 13px; color: #cbd5e1; }
+    tr.total-row td { font-weight: 700; color: #f8fafc; background: #1a2540; }
+    tr.total-row td:first-child { color: #94a3b8; }
+    .won-val { color: #4ade80; font-weight: 600; }
+    .pipe-val { color: #60a5fa; font-weight: 600; }
+    .tbd-val { color: #64748b; font-style: italic; }
+
+    /* Status badges in table */
+    .status-hot { color: #fbbf24; font-weight: 600; }
+    .status-growing { color: #4ade80; }
+    .status-stable { color: #60a5fa; }
+    .status-building { color: #a78bfa; }
+
+    /* MediaRadar section */
+    .mr-section { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; margin-bottom: 48px; }
+    .mr-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .mr-header h3 { font-size: 15px; font-weight: 700; color: #f8fafc; }
+    .mr-header p { font-size: 12px; color: #64748b; margin-top: 4px; }
+    .mr-tag { font-size: 11px; font-weight: 600; background: #0f172a; border: 1px solid #334155; color: #60a5fa; padding: 4px 10px; border-radius: 6px; }
+    .mr-table-wrap { overflow-x: auto; }
+    .mr-table { width: 100%; border-collapse: collapse; }
+    .mr-table th { background: #0f172a; text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #64748b; white-space: nowrap; }
+    .mr-table td { padding: 10px 14px; border-top: 1px solid #0f172a; font-size: 12px; color: #cbd5e1; white-space: nowraw; }
+    .mr-table tr:hover td { background: #243147; }
+    .trend-up { color: #4ade80; font-weight: 600; }
+    .trend-down { color: #f87171; font-weight: 600; }
+    .mr-note { margin-top: 16px; font-size: 12px; color: #64748b; background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 12px 16px; }
+    .mr-note a { color: #60a5fa; text-decoration: none; }
+    .mr-note a:hover { text-decoration: underline; }
+
+    /* Slack pod channels summary */
+    .pods-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 48px; }
+    .pod-card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 14px 16px; text-decoration: none; color: #94a3b8; font-size: 12px; font-weight: 600; transition: all 0.2s; display: flex; align-items: center; gap: 10px; }
+    .pod-card:hover { border-color: #a78bfa; color: #a78bfa; }
+    .pod-icon { font-size: 16px; }
+
+    footer { text-align: center; color: #475569; font-size: 12px; padding: 32px 40px; border-top: 1px solid #1e293b; }
+  </style>
 </head>
 <body>
+
 <header>
-<div class="logo">Pubity Group</div>
-<h1>Strategic Client Accounts</h1>
-<p>Top 9 key account summaries — revenue, pipeline and SharePoint document links</p>
-<div class="meta"><span>📅 30 March 2026</span><span>👤 Rachel Barnett, Sales Operations</span><span>📁 9 Accounts</span><span>💰 $8.2M Won · $5.1M Pipeline</span></div>
+  <div class="logo">Pubity Group Â· Confidential</div>
+  <h1>Strategic Client Accounts</h1>
+  <p>12 key account summaries â live SharePoint docs, Slack pods, revenue & pipeline</p>
+  <div class="meta">
+    <span>ð Updated 1 April 2026</span>
+    <span>ð¤ Rachel Barnett, Sales Operations</span>
+    <span>ð 12 Accounts Â· $8.2M Won Â· $5.1M Pipeline</span>
+    <span>ð¯ Seb's strategic programme â 2026â2028</span>
+  </div>
 </header>
+
 <main>
-<div class="summary">
-<div class="sc g"><div class="lbl">Total Won Revenue</div><div class="val">$8.23M</div><div class="sub">Across 9 strategic accounts</div></div>
-<div class="sc b"><div class="lbl">Active Pipeline</div><div class="val">$5.05M</div><div class="sub">In-flight opportunities</div></div>
-<div class="sc a"><div class="lbl">Hot Accounts</div><div class="val">2</div><div class="sub">Meta (Hot) · PepsiCo (Very Hot)</div></div>
-</div>
-<h2>Accounts</h2>
-<div class="grid">
-<div class="card"><div class="ch"><div class="an">Amazon</div><span class="badge grow">Growing</span></div><div class="rel">Multi-year relationship</div><div class="cs"><div><div class="sl">Won</div><div class="sv won">$1.2M</div></div><div><div class="sl">Pipeline</div><div class="sv pipe">$850K</div></div></div><a class="dl" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_Amazon_StrategicAccount_Summary_30032026.docx" target="_blank">📄 View Account Summary</a></div>
-<div class="card"><div class="ch"><div class="an">Meta</div><span class="badge hot">🔥 Hot</span></div><div class="rel">Established relationship</div><div class="cs"><div><div class="sl">Won</div><div class="sv won">$1.8M</div></div><div><div class="sl">Pipeline</div><div class="sv pipe">$1.2M</div></div></div><a class="dl" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_Meta_StrategicAccount_Summary_30032026.docx" target="_blank">📄 View Account Summary</a></div>
-<div class="card"><div class="ch"><div class="an">PepsiCo</div><span class="badge hot">🔥 Very Hot</span></div><div class="rel">Major Account</div><div class="cs"><div><div class="sl">Won</div><div class="sv won">$800K</div></div><div><div class="sl">Pipeline</div><div class="sv pipe">$1.5M</div></div></div><a class="dl" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_PepsiCo_StrategicAccount_Summary_30032026.docx" target="_blank">📄 View Account Summary</a></div>
-<div class="card"><div class="ch"><div class="an">Sky</div><span class="badge stab">Stable</span></div><div class="rel">Premium relationship</div><div class="cs"><div><div class="sl">Won</div><div class="sv won">$1.1M</div></div><div><div class="sl">Pipeline</div><div class="sv pipe">$890K</div></div></div><a class="dl" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_Sky_StrategicAccount_Summary_30032026.docx" target="_blank">📄 View Account Summary</a></div>
-<div class="card"><div class="ch"><div class="an">Universal</div><span class="badge act">Active</span></div><div class="rel">Strategic relationship</div><div class="cs"><div><div class="sl">Won</div><div class="sv won">$1.3M</div></div><div><div class="sl">Pipeline</div><div class="sv pipe">$650K</div></div></div><a class="dl" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_Universal_StrategicAccount_Summary_30032026.docx" target="_blank">📄 View Account Summary</a></div>
-<div class="card"><div class="ch"><div class="an">LEGO</div><span class="badge grow">Growing</span></div><div class="rel">Emerging relationship</div><div class="cs"><div><div class="sl">Won</div><div class="sv won">$520K</div></div><div><div class="sl">Pipeline</div><div class="sv pipe">$780K</div></div></div><a class="dl" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_LEGO_StrategicAccount_Summary_30032026.docx" target="_blank">📄 View Account Summary</a></div>
-<div class="card"><div class="ch"><div class="an">RBI Brands</div><span class="badge dev">Developing</span></div><div class="rel">Growth relationship</div><div class="cs"><div><div class="sl">Won</div><div class="sv won">$950K</div></div><div><div class="sl">Pipeline</div><div class="sv pipe">$620K</div></div></div><a class="dl" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_RBI%20Brands_StrategicAccount_Summary_30032026.docx" target="_blank">📄 View Account Summary</a></div>
-<div class="card"><div class="ch"><div class="an">Logitech</div><span class="badge stab">Stable</span></div><div class="rel">Regional relationship</div><div class="cs"><div><div class="sl">Won</div><div class="sv won">$420K</div></div><div><div class="sl">Pipeline</div><div class="sv pipe">$380K</div></div></div><a class="dl" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_Logitech_StrategicAccount_Summary_30032026.docx" target="_blank">📄 View Account Summary</a></div>
-<div class="card"><div class="ch"><div class="an">Subway</div><span class="badge ear">Early Stage</span></div><div class="rel">New relationship</div><div class="cs"><div><div class="sl">Won</div><div class="sv won">$105K</div></div><div><div class="sl">Pipeline</div><div class="sv pipe">$175K</div></div></div><a class="dl" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_Subway_StrategicAccount_Summary_30032026.docx" target="_blank">📄 View Account Summary</a></div>
-</div>
-<h2>Revenue Snapshot</h2>
-<div class="tw"><table><thead><tr><th>Account</th><th>Relationship</th><th>Won Revenue</th><th>Pipeline</th><th>Status</th></tr></thead><tbody>
-<tr><td>Amazon</td><td>Multi-year</td><td class="wv">$1,200,000</td><td class="pv">$850,000</td><td>Growing</td></tr>
-<tr><td>Meta</td><td>Established</td><td class="wv">$1,800,000</td><td class="pv">$1,200,000</td><td>Hot</td></tr>
-<tr><td>RBI Brands</td><td>Growth</td><td class="wv">$950,000</td><td class="pv">$620,000</td><td>Developing</td></tr>
-<tr><td>Sky</td><td>Premium</td><td class="wv">$1,100,000</td><td class="pv">$890,000</td><td>Stable</td></tr>
-<tr><td>Universal</td><td>Strategic</td><td class="wv">$1,300,000</td><td class="pv">$650,000</td><td>Active</td></tr>
-<tr><td>LEGO</td><td>Emerging</td><td class="wv">$520,000</td><td class="pv">$780,000</td><td>Growing</td></tr>
-<tr><td>PepsiCo</td><td>Major Account</td><td class="wv">$800,000</td><td class="pv">$1,500,000</td><td>Very Hot</td></tr>
-<tr><td>Logitech</td><td>Regional</td><td class="wv">$420,000</td><td class="pv">$380,000</td><td>Stable</td></tr>
-<tr><td>Subway</td><td>New</td><td class="wv">$105,000</td><td class="pv">$175,000</td><td>Early Stage</td></tr>
-<tr><td>TOTAL</td><td>—</td><td class="wv">$8,195,000</td><td class="pv">$6,045,000</td><td>—</td></tr>
-</tbody></table></div>
-<h2>SharePoint Upload Guide</h2>
-<div class="guide">
-<h3>📁 Destination Folder</h3>
-<div class="su">https://pubitypgl.sharepoint.com/sites/Pubity/Shared Documents/Brand Partnerships Hub/Commercial Organisation/Strategic Client/</div>
-<br><h3>Steps</h3>
-<ol class="steps">
-<li>Open SharePoint and navigate to Brand Partnerships Hub → Commercial Organisation → Strategic Client</li>
-<li>Open your Downloads folder</li>
-<li>Drag all 9 PubityGroup_*_30032026.docx files into SharePoint</li>
-<li>Wait 30–60 seconds for upload confirmation</li>
-<li>For each file: Share → Pubity Group can edit → Copy link</li>
-<li>Paste links in Slack (#sellers or #operations) and pin for the team</li>
-</ol>
-<br><p style="color:#64748b;font-size:13px">Total time estimate: ~20 minutes</p>
-</div>
+
+  <!-- Summary cards -->
+  <div class="summary">
+    <div class="summary-card green">
+      <div class="label">Total Won Revenue</div>
+      <div class="value">$8.2M</div>
+      <div class="sub">Across 10 tracked accounts</div>
+    </div>
+    <div class="summary-card blue">
+      <div class="label">Active Pipeline</div>
+      <div class="value">$5.1M</div>
+      <div class="sub">In-flight opportunities</div>
+    </div>
+    <div class="summary-card amber">
+      <div class="label">Hot Accounts</div>
+      <div class="value">2</div>
+      <div class="sub">Meta Â· PepsiCo (Very Hot)</div>
+    </div>
+    <div class="summary-card purple">
+      <div class="label">Slack Pods Live</div>
+      <div class="value">12</div>
+      <div class="sub">All accounts active</div>
+    </div>
+  </div>
+
+  <!-- Account cards -->
+  <h2>All 12 Strategic Accounts</h2>
+  <div class="accounts">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">Amazon</div>
+        <span class="badge growing">Growing</span>
+      </div>
+      <div class="relationship">Multi-year Â· E-Commerce & Technology</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$1.2M</div></div>
+        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$850K</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Amazon_StrategicAccount_Summary_30March26.docx" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Account Summary
+        </a>
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALYPK77JR" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #amazon-pod
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">Meta</div>
+        <span class="badge hot">ð¥ Hot</span>
+      </div>
+      <div class="relationship">Established Â· Technology & AI</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$1.8M</div></div>
+        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$1.2M</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Meta_StrategicAccount_Summary_30March26.docx" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Account Summary
+        </a>
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALGLGCPU7" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #meta-account-pod
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">PepsiCo</div>
+        <span class="badge hot">ð¥ Very Hot</span>
+      </div>
+      <div class="relationship">Major Account Â· Food & Beverage</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$800K</div></div>
+        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$1.5M</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_PepsiCo_StrategicAccount_Summary_30March26.docx" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Account Summary
+        </a>
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALYPT13NZ" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #pepsi-co-pod
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">Sky</div>
+        <span class="badge stable">Stable</span>
+      </div>
+      <div class="relationship">Premium Â· Media & Entertainment</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$1.1M</div></div>
+        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$890K</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Sky_StrategicAccount_Summary_30March26.docx" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Account Summary
+        </a>
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0AM27Y4ZDY" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #sky-pod
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">Universal</div>
+        <span class="badge active">Active</span>
+      </div>
+      <div class="relationship">Strategic Â· Film & Entertainment</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$1.3M</div></div>
+        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$650K</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Universal_StrategicAccount_Summary_30March26.docx" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Account Summary
+        </a>
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALYR6U5T7" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #universal-pod
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">LEGO</div>
+        <span class="badge growing">Growing</span>
+      </div>
+      <div class="relationship">Emerging Â· Consumer Products & Toys</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$520K</div></div>
+        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$780K</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_LEGO_StrategicAccount_Summary_30March26.docx" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Account Summary
+        </a>
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALVSAD0CB" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #lego-pod
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">RBI Brands</div>
+        <span class="badge developing">Developing</span>
+      </div>
+      <div class="relationship">Growth Â· Quick Service Restaurants</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$950K</div></div>
+        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$620K</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_RBIBrands_StrategicAccount_Summary_30March26.docx" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Account Summary
+        </a>
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALVP3RGJX" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #rbi-brands-pod
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">Logitech</div>
+        <span class="badge stable">Stable</span>
+      </div>
+      <div class="relationship">Regional Â· Technology & Gaming</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$420K</div></div>
+        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$380K</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Logitech_StrategicAccount_Summary_30March26.docx" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Account Summary
+        </a>
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALLQSTYMD" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #logitech-pod
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">Subway</div>
+        <span class="badge early">Early Stage</span>
+      </div>
+      <div class="relationship">New Â· Quick Service Restaurants</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$105K</div></div>
+        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$175K</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Subway_StrategicAccount_Summary_30March26.docx" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Account Summary
+        </a>
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALVQAV883" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #subway-pod
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">Epic Games</div>
+        <span class="badge growing">Growing</span>
+      </div>
+      <div class="relationship">Strategic Â· Gaming / Entertainment</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">Active</div></div>
+        <div class="stat-item"><div class="stat-label">MR Spend Trend</div><div class="stat-value pipeline">+24% YoY</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_EpicGames_StrategicAccount_Summary_12March26.docx" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Account Summary
+        </a>
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALR6MC0KD" target="_blank">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #epicgames-pod
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">Unilever</div>
+        <span class="badge building">Building</span>
+      </div>
+      <div class="relationship">New Strategic Target Â· FMCG</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value tbd">Building pipeline</div></div>
+        <div class="stat-item"><div class="stat-label">Target</div><div class="stat-value tbd">$3M+ long-term</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0AMWEF87T2" target="_blank" style="flex: 1;">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #unilever-pod
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="account-name">General Mills</div>
+        <span class="badge building">Building</span>
+      </div>
+      <div class="relationship">New Strategic Target Â· Food & Beverage</div>
+      <div class="card-stats">
+        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value tbd">Building pipeline</div></div>
+        <div class="stat-item"><div class="stat-label">Target</div><div class="stat-value tbd">$3M+ long-term</div></div>
+      </div>
+      <div class="card-links">
+        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0AMWG597JL" target="_blank" style="flex: 1;">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          #general-mills-pod
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Revenue snapshot -->
+  <h2>Revenue Snapshot</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Account</th>
+          <th>Relationship</th>
+          <th>Won Revenue</th>
+          <th>Pipeline</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Amazon</td><td>Multi-year</td><td class="won-val">$1.2M</td><td class="pipe-val">$850K</td><td class="status-growing">Growing</td></tr>
+        <tr><td>Meta</td><td>Established</td><td class="won-val">$1.8M</td><td class="pipe-val">$1.2M</td><td class="status-hot">ð¥ Hot</td></tr>
+        <tr><td>RBI Brands</td><td>Growth</td><td class="won-val">$950K</td><td class="pipe-val">$620K</td><td>Developing</td></tr>
+        <tr><td>Sky</td><td>Premium</td><td class="won-val">$1.1M</td><td class="pipe-val">$890K</td><td class="status-stable">Stable</td></tr>
+        <tr><td>Universal</td><td>Strategic</td><td class="won-val">$1.3M</td><td class="pipe-val">$650K</td><td class="status-stable">Active</td></tr>
+        <tr><td>LEGO</td><td>Emerging</td><td class="won-val">$520K</td><td class="pipe-val">$780K</td><td class="status-growing">Growing</td></tr>
+        <tr><td>PepsiCo</td><td>Major Account</td><td class="won-val">$800K</td><td class="pipe-val">$1.5M</td><td class="status-hot">ð¥ Very Hot</td></tr>
+        <tr><td>Logitech</td><td>Regional</td><td class="won-val">$420K</td><td class="pipe-val">$380K</td><td class="status-stable">Stable</td></tr>
+        <tr><td>Subway</td><td>New</td><td class="won-val">$105K</td><td class="pipe-val">$175K</td><td>Early Stage</td></tr>
+        <tr><td>Epic Games</td><td>Strategic</td><td class="tbd-val">Active</td><td class="tbd-val">Active</td><td class="status-growing">Growing</td></tr>
+        <tr><td>Unilever</td><td>New Target</td><td class="tbd-val">Building</td><td class="tbd-val">Building</td><td class="status-building">Building</td></tr>
+        <tr><td>General Mills</td><td>New Target</td><td class="tbd-val">Building</td><td class="tbd-val">Building</td><td class="status-building">Building</td></tr>
+        <tr class="total-row"><td>TOTAL (tracked)</td><td>â</td><td class="won-val">$8.2M</td><td class="pipe-val">$5.1M</td><td>â</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MediaRadar Intelligence -->
+  <h2>MediaRadar Intelligence â Epic Games</h2>
+  <div class="mr-section">
+    <div class="mr-header">
+      <div>
+        <h3>Gaming Brand Ad Spend â MediaRadar Data (Mar 2026)</h3>
+        <p>Data pulled from MediaRadar public advertiser profiles, 27 March 2026. Source: Myles Chilvers, #category-dashboard.</p>
+      </div>
+      <a class="mr-tag" href="https://pubitygroup.slack.com/docs/T020METK554/F0AP8DQG29L" target="_blank">ð Full Gaming Report â</a>
+    </div>
+    <div class="mr-table-wrap">
+      <table class="mr-table">
+        <thead>
+          <tr>
+            <th>Brand</th>
+            <th>Annual Mktg Budget</th>
+            <th>Digital/Social Dec 25âMar 26</th>
+            <th>YoY Change</th>
+            <th>Predicted AprâJun 26</th>
+            <th>MR Spend (12mo)</th>
+            <th>MR Trend</th>
+            <th>Media Properties</th>
+            <th>New Products</th>
+            <th>Recent Placements</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: #162032; border-left: 3px solid #a78bfa;">
+            <td><strong style="color:#f8fafc;">ð® Epic Games</strong> <span style="font-size:10px;color:#a78bfa;background:#1e293b;padding:2px 6px;border-radius:4px;margin-left:6px;">STRATEGIC ACCOUNT</span></td>
+            <td>$1.0â1.5B (est.)</td>
+            <td>$285M</td>
+            <td class="trend-up">+24%</td>
+            <td>$270â330M</td>
+            <td>Under $100M</td>
+            <td class="trend-down">â Decreased</td>
+            <td>100+</td>
+            <td>13</td>
+            <td>Snapchat, Display, TV</td>
+          </tr>
+          <tr><td>Microsoft / Xbox</td><td>$2.5â3.0B</td><td>$725M</td><td class="trend-up">+18%</td><td>$650â730M</td><td>Under $100M</td><td class="trend-up">â Increased</td><td>250+</td><td>2</td><td>Snapchat, Display (Dexerto), TV (ESPN)</td></tr>
+          <tr><td>Take-Two / Rockstar</td><td>$900Mâ1.1B</td><td>$200M</td><td class="trend-up">+21%</td><td>$350â450M â¡</td><td>Under $100M</td><td class="trend-down">â Decreased</td><td>Under 50</td><td>2</td><td>YouTube Homepage, Reddit Native</td></tr>
+          <tr><td>Nintendo</td><td>$966M (Â¥140B)</td><td>$380M</td><td class="trend-up">+62%</td><td>$250â310M</td><td>Under $100M</td><td class="trend-up">â Increased</td><td>250+</td><td>31</td><td>Snapchat, YouTube, TV (USA Network)</td></tr>
+          <tr><td>Sony PlayStation</td><td>$1.5â2.0B (est.)</td><td>$410M</td><td class="trend-up">+15%</td><td>$430â510M</td><td>Under $100M</td><td class="trend-up">â Increased</td><td>100+</td><td>4</td><td>Snapchat, Native (Target), TV (Golf Ch)</td></tr>
+          <tr><td>Electronic Arts</td><td>$962M</td><td>$215M</td><td class="trend-down">-16%</td><td>$150â190M</td><td>Under $100M</td><td class="trend-down">â Decreased</td><td>250+</td><td>8</td><td>Video (NFL), TV (NFL Network), YouTube</td></tr>
+          <tr><td>Capcom</td><td>$130â170M (est.)</td><td>$38M</td><td class="trend-up">+36%</td><td>$45â60M</td><td>Under $100M</td><td class="trend-up">â Increased</td><td>100+</td><td>1</td><td>YouTube (Kids, Men's), TV (ESPN)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mr-note">
+      â¡ <strong>Key alert:</strong> Take-Two / Rockstar GTA 6 marketing launches <strong>May 9, 2026</strong> â predicted to add $150â250M in Q2 ad spend. Not a current Pubity partner. Epic Games Fortnite Chapter 7 Season 2 is live with 13 new products/collabs including He-Man, DC mode, Chappell Roan. <strong>Fortnite is the #1 single-game ad spender globally.</strong>
+      <br><br>
+      ð Full gaming brand spend report (inc. brand profiles & Pubity partnership rankings): <a href="https://pubitygroup.slack.com/docs/T020METK554/F0AP8DQG29L" target="_blank">View in Slack Canvas â</a>
+      &nbsp;|&nbsp; MediaRadar data requires paid subscription for granular spend breakdowns beyond the "Under $100M" band.
+    </div>
+  </div>
+
+  <!-- Slack pods quick access -->
+  <h2>Quick Access â All 12 Slack Pods</h2>
+  <div class="pods-grid">
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALYPK77JR" target="_blank"><span class="pod-icon">ð</span>#amazon-pod</a>
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALGLGCPU7" target="_blank"><span class="pod-icon">ð</span>#meta-account-pod</a>
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALYPT13NZ" target="_blank"><span class="pod-icon">ð¥¤</span>#pepsi-co-pod</a>
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0AM27Y4ZDY" target="_blank"><span class="pod-icon">ðº</span>#sky-pod</a>
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALYR6U5T7" target="_blank"><span class="pod-icon">ð¬</span>#universal-pod</a>
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALVSAD0CB" target="_blank"><span class="pod-icon">ð§±</span>#lego-pod</a>
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALVP3RGJX" target="_blank"><span class="pod-icon">ð</span>#rbi-brands-pod</a>
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALLQSTYMD" target="_blank"><span class="pod-icon">ð±ï¸</span>#logitech-pod</a>
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALVQAV883" target="_blank"><span class="pod-icon">ð¥ª</span>#subway-pod</a>
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALR6MC0KD" target="_blank"><span class="pod-icon">ð®</span>#epicgames-pod</a>
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0AMWEF87T2" target="_blank"><span class="pod-icon">ð§´</span>#unilever-pod</a>
+    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0AMWG597JL" target="_blank"><span class="pod-icon">ð¾</span>#general-mills-pod</a>
+  </div>
+
+  <!-- SharePoint folder -->
+  <h2>SharePoint â Live Document Folder</h2>
+  <div class="guide" style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:24px;margin-bottom:40px;">
+    <p style="font-size:13px;color:#94a3b8;margin-bottom:16px;">All final approved account summaries are stored in the <strong style="color:#f8fafc;">FINAL VRSION TO BE APPROVED BY SEB</strong> folder. Links on each card above go directly to the latest version.</p>
+    <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:11px;color:#60a5fa;word-break:break-all;">
+      https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/
+    </div>
+    <p style="font-size:12px;color:#64748b;margin-top:12px;">ð Docs are refreshed monthly via Claude + HubSpot connector. Unilever and General Mills summaries to be created once relationship data is established.</p>
+  </div>
+
 </main>
-<footer>Pubity Group · Strategic Client Accounts · Rachel Barnett · 30 March 2026</footer>
+
+<footer>
+  Pubity Group Â· Strategic Client Accounts Â· Updated 1 April 2026 Â· Rachel Barnett, Sales Operations<br>
+  <span style="color:#334155;">Seb's strategic programme: gear the most business resource (sales, studio, marketing) over the next 2â3 years toward these 12 accounts â culminating in $3M+ deal sizes, upfronts, and award-winning campaigns.</span>
+</footer>
+
 </body>
 </html>
