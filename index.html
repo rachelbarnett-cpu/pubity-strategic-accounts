@@ -173,6 +173,8 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
   <div class="tab" onclick="showTab('contacts')">👤 Key Contacts</div>
   <div class="tab" onclick="showTab('events')">✈️ Events</div>
   <div class="tab" onclick="showTab('standards')">📋 Weekly Standards</div>
+  <div class="tab" onclick="showTab('crm-audit')">🔍 CRM Audit</div>
+  <div class="tab" onclick="showTab('skills')">⚡ Claude Skills</div>
   <div class="tab" onclick="showTab('resources')">📁 Resources</div>
 </div>
 
@@ -676,6 +678,186 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
       <div class="cmp-item"><div class="cl">Specific next step?</div><div class="cv" style="color:var(--yellow)">With a date</div></div>
       <div class="cmp-item"><div class="cl">Movement this week?</div><div class="cv" style="color:var(--yellow)">Or close as lost</div></div>
     </div>
+  </div>
+</div>
+
+<!-- CRM AUDIT -->
+<div id="tab-crm-audit" class="panel">
+  <div class="last-updated">HubSpot audit as of <span>1 April 2026</span> · Alexander Sijpesteijn · 15 active deals · Owner ID 76002297</div>
+
+  <div class="section-title">Alexander — Missing CRM Data (15 Active Deals)</div>
+
+  <div class="stat-grid">
+    <div class="stat r"><div class="lbl">Missing Contacts</div><div class="val">15</div><div class="sub">0 contacts linked across ALL deals</div></div>
+    <div class="stat r"><div class="lbl">Missing Companies</div><div class="val">15</div><div class="sub">0 companies linked across ALL deals</div></div>
+    <div class="stat y"><div class="lbl">Missing Next Step</div><div class="val">13</div><div class="sub">Only 2 deals have hs_next_step filled</div></div>
+    <div class="stat o"><div class="lbl">Overdue Close Dates</div><div class="val">11</div><div class="sub">Close date in the past — need updating</div></div>
+    <div class="stat p"><div class="lbl">Missing Description</div><div class="val">15</div><div class="sub">No deal descriptions on any deal</div></div>
+    <div class="stat b"><div class="lbl">Missing Last Contact</div><div class="val">13</div><div class="sub">notes_last_contacted blank on 13 deals</div></div>
+  </div>
+
+  <div class="alert r"><div class="alert-icon">🚨</div><div><div class="alert-title">Critical: Zero contacts linked to any deal</div><div class="alert-body">Every single deal (15/15) has num_associated_contacts = 0. This means no contact records are attached — no client names, emails or decision-maker data in CRM.</div></div></div>
+  <div class="alert r"><div class="alert-icon">🚨</div><div><div class="alert-title">Critical: Zero companies linked to any deal</div><div class="alert-body">Every deal has hs_num_associated_companies = 0. Clients like Carlsberg, Muller, Universal, Disney, Paramount have no company records linked.</div></div></div>
+  <div class="alert y"><div class="alert-icon">⚠️</div><div><div class="alert-title">11 deals have overdue close dates</div><div class="alert-body">Close dates range from Jan–Mar 2026. Deals are past close date but still open — either update stage or reschedule close date at Friday standup.</div></div></div>
+
+  <div class="section-title">Deal-by-Deal Breakdown</div>
+  <table>
+    <thead><tr><th>Deal</th><th>Amount</th><th>Stage</th><th>Close Date</th><th>Contacts</th><th>Next Step</th><th>Last Updated</th><th>Missing</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/495574277359" target="_blank" style="color:var(--yellow)">Paramount: Jackass</a></td>
+        <td>£29,500</td><td><span class="sp s40">40%</span></td><td style="color:var(--red)">31 Mar 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/495463275725" target="_blank" style="color:var(--yellow)">Goodwoof</a></td>
+        <td>£55,000</td><td><span class="sp s40">40%</span></td><td style="color:var(--red)">31 Mar 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/494813792445" target="_blank" style="color:var(--yellow)">Carlsberg: ICD</a></td>
+        <td>£218,000</td><td><span class="sp s40">40%</span></td><td style="color:var(--red)">31 Mar 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/494472369363" target="_blank" style="color:var(--yellow)">Britvic: Tango</a></td>
+        <td>£270,000</td><td><span class="sp s40">40%</span></td><td style="color:var(--red)">31 Mar 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/494016649438" target="_blank" style="color:var(--yellow)">Muller: Corner Collab</a></td>
+        <td>£280,000</td><td><span class="sp s40">40%</span></td><td style="color:var(--red)">31 Mar 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/494059462887" target="_blank" style="color:var(--yellow)">Universal: Odyssey</a></td>
+        <td>£70,000</td><td><span class="sp s40">40%</span></td><td style="color:var(--red)">20 Mar 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/494058732786" target="_blank" style="color:var(--yellow)">HBO: HODS3</a></td>
+        <td>£50,000</td><td><span class="sp s60">60%</span></td><td style="color:var(--red)">31 Mar 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/493751117037" target="_blank" style="color:var(--yellow)">Warner Bros: Supergirl</a></td>
+        <td>£57,000</td><td><span class="sp s40">40%</span></td><td style="color:var(--red)">27 Mar 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--green)">Share brief response ✓</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Description</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/493206552794" target="_blank" style="color:var(--yellow)">Disney: Winnie The Pooh</a></td>
+        <td>£75,000</td><td><span class="sp s60">60%</span></td><td style="color:var(--green)">10 Apr 26</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--green)">Share brief response ✓</td><td style="color:var(--muted)">1 Apr</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Description</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/481098098874" target="_blank" style="color:var(--yellow)">Duelbits: World Cup</a></td>
+        <td>£750,000</td><td><span class="sp s60">60%</span></td><td style="color:var(--red)">28 Feb 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description · Close date overdue by 31 days</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/474608581823" target="_blank" style="color:var(--yellow)">Universal: Disclosure Day</a></td>
+        <td>£115,000</td><td><span class="sp s60">60%</span></td><td style="color:var(--red)">28 Feb 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/473517275371" target="_blank" style="color:var(--yellow)">Universal: Finding Emily</a></td>
+        <td>£35,000</td><td><span class="sp s60">60%</span></td><td style="color:var(--red)">28 Feb 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/446204382443" target="_blank" style="color:var(--yellow)">IRN Bru: Maverick</a></td>
+        <td>£180,000</td><td><span class="sp s40">40%</span></td><td style="color:var(--red)">31 Jan 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description · Close date overdue by 59 days</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/437768447189" target="_blank" style="color:var(--yellow)">Muller: FRIJJ</a></td>
+        <td>£125,000</td><td><span class="sp s60">60%</span></td><td style="color:var(--red)">31 Jan 26 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description · Close date overdue by 59 days</td>
+      </tr>
+      <tr>
+        <td><a href="https://app.hubspot.com/contacts/143333975/record/0-3/412862751970" target="_blank" style="color:var(--yellow)">Visit Abu Dhabi: FY26</a></td>
+        <td>£1,200,000</td><td><span class="sp s40">40%</span></td><td style="color:var(--red)">31 Dec 25 ⚠</td>
+        <td style="color:var(--red)">0 ✗</td><td style="color:var(--red)">None ✗</td><td style="color:var(--muted)">31 Mar</td>
+        <td style="color:var(--red);font-size:11px">Contact · Company · Next step · Description · Close date overdue by 91 days</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title" style="margin-top:28px">Alex — Action List to Fix CRM</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div class="ds"><div class="ds-header" onclick="toggleDS(this)"><span class="dn">🔴 Priority 1: Link contacts to all 15 deals</span><span class="chev">▼</span></div><div class="ds-body" style="padding:16px;font-size:12px;color:var(--text)">In HubSpot, open each deal → scroll to Contacts section → search for existing contact or create new one. Minimum: client name + email. Target: all 15 deals done by EOW.<br><br><strong style="color:var(--yellow)">Estimated time: 45–60 mins</strong></div></div>
+    <div class="ds"><div class="ds-header" onclick="toggleDS(this)"><span class="dn">🔴 Priority 2: Link companies to all 15 deals</span><span class="chev">▼</span></div><div class="ds-body" style="padding:16px;font-size:12px;color:var(--text)">Open each deal → scroll to Companies → search for company or create new (Carlsberg, Muller, Universal, Disney, Paramount, HBO, Warner Bros, Goodwoof, IRN Bru, Duelbits, Visit Abu Dhabi, Britvic).<br><br><strong style="color:var(--yellow)">Estimated time: 30–45 mins</strong></div></div>
+    <div class="ds"><div class="ds-header" onclick="toggleDS(this)"><span class="dn">🟡 Priority 3: Update close dates on 11 overdue deals</span><span class="chev">▼</span></div><div class="ds-body" style="padding:16px;font-size:12px;color:var(--text)">Deals with Jan/Feb/Mar close dates that are still open need rescheduling. Move each to a realistic future date or update to Closed Lost if dead.<br><br><strong style="color:var(--yellow)">Estimated time: 20 mins</strong></div></div>
+    <div class="ds"><div class="ds-header" onclick="toggleDS(this)"><span class="dn">🟡 Priority 4: Add next steps to 13 deals</span><span class="chev">▼</span></div><div class="ds-body" style="padding:16px;font-size:12px;color:var(--text)">Fill the "Next Step" field on every deal with a concrete action: "Send proposal by Apr 5", "Follow up after Easter", "Awaiting client sign-off" etc. Only Supergirl and Winnie the Pooh have this filled.<br><br><strong style="color:var(--yellow)">Estimated time: 20 mins</strong></div></div>
+  </div>
+
+  <div class="alert g" style="margin-top:20px"><div class="alert-icon">⏱️</div><div><div class="alert-title">Estimated total fix time with Alex: 2–2.5 hours</div><div class="alert-body">Book a dedicated CRM session with Alex. Walk through each deal together — contacts, companies, close dates, next steps. This brings his CRM from ~10% complete to ~80% complete in one sitting. Biggest risk: Duelbits £750K and Visit Abu Dhabi £1.2M are completely data-dark.</div></div></div>
+</div>
+
+<!-- SKILLS -->
+<div id="tab-skills" class="panel">
+  <div class="last-updated">Claude prompt shortcuts — <span>copy & use in Claude Code or any AI chat</span></div>
+
+  <div class="section-title">HubSpot & Pipeline Skills</div>
+  <div style="display:grid;gap:12px;margin-bottom:28px">
+    <div class="ds"><div class="ds-header" onclick="toggleDS(this)"><span class="dn">🔍 Look up a client on HubSpot</span><span class="dt" style="font-size:11px;color:var(--muted)">Deal history + pipeline + last contact</span><span class="chev">▼</span></div>
+    <div class="ds-body" style="padding:16px">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Paste this prompt into Claude, replacing [client name]:</div>
+      <div style="background:#111;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;font-family:monospace;color:var(--yellow);line-height:1.6">Look up [client name] on HubSpot and give me a summary of their deal history, pipeline value, and last contact date.</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px">Returns: all deals, total pipeline value, most recent activity date, deal stages, owner. Works for any brand in CRM.</div>
+    </div></div>
+
+    <div class="ds"><div class="ds-header" onclick="toggleDS(this)"><span class="dn">⏰ Check open deals — flag stale ones</span><span class="dt" style="font-size:11px;color:var(--muted)">Open deals by stage + 14-day flag</span><span class="chev">▼</span></div>
+    <div class="ds-body" style="padding:16px">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Use this to audit any seller's pipeline:</div>
+      <div style="background:#111;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;font-family:monospace;color:var(--yellow);line-height:1.6">Check HubSpot for any open deals assigned to [seller name]. List them by stage and flag anything that hasn't been updated in the last 14 days.</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px">Returns: all open deals grouped by pipeline stage, with red flags on anything stale. Great for Friday standups.</div>
+    </div></div>
+
+    <div class="ds"><div class="ds-header" onclick="toggleDS(this)"><span class="dn">📊 Full CRM audit for a seller</span><span class="dt" style="font-size:11px;color:var(--muted)">All missing fields, contacts, companies</span><span class="chev">▼</span></div>
+    <div class="ds-body" style="padding:16px">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Run this to get a complete missing-data report:</div>
+      <div style="background:#111;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;font-family:monospace;color:var(--yellow);line-height:1.6">Find all of [seller name]'s missing data on CRM. Check every open deal for: missing contacts, missing companies, overdue close dates, empty next steps, and no description. Give me a priority action list.</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px">Returns: deal-by-deal breakdown of gaps, red/amber priority list, estimated fix time per seller.</div>
+    </div></div>
+  </div>
+
+  <div class="section-title">Research & Strategy Skills</div>
+  <div style="display:grid;gap:12px;margin-bottom:28px">
+    <div class="ds"><div class="ds-header" onclick="toggleDS(this)"><span class="dn">🎯 Brand fit research for a pitch</span><span class="dt" style="font-size:11px;color:var(--muted)">3 reasons + audience + social + campaigns</span><span class="chev">▼</span></div>
+    <div class="ds-body" style="padding:16px">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Use before any new business pitch:</div>
+      <div style="background:#111;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;font-family:monospace;color:var(--yellow);line-height:1.6">Research [brand name] and give me 3 reasons why they'd be a good fit for Pubity Group's social channels. Include their audience, current social presence, and any recent campaigns.</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px">Returns: brand audience profile, social channel breakdown, recent campaign examples, why Pubity's reach aligns — ready to drop into a proposal.</div>
+    </div></div>
+
+    <div class="ds"><div class="ds-header" onclick="toggleDS(this)"><span class="dn">🥊 Competitor content research</span><span class="dt" style="font-size:11px;color:var(--muted)">Rivals + content types for pitch ammo</span><span class="chev">▼</span></div>
+    <div class="ds-body" style="padding:16px">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Use to build out the competitive landscape section of any pitch:</div>
+      <div style="background:#111;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;font-family:monospace;color:var(--yellow);line-height:1.6">Who are [brand]'s likely competitors and what kind of content are they putting out on social? I want to use this in my pitch.</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px">Returns: competitor list, content strategy breakdown per brand, format preferences (UGC / paid / influencer), angles you can use to differentiate Pubity's offering.</div>
+    </div></div>
+  </div>
+
+  <div class="section-title">Quick Tips</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+    <div class="stat b"><div class="lbl">Replace [brackets]</div><div class="val" style="font-size:14px">Always swap</div><div class="sub">Replace anything in [brackets] with the real name before using</div></div>
+    <div class="stat g"><div class="lbl">Works in Claude Code</div><div class="val" style="font-size:14px">Live data</div><div class="sub">These prompts pull live HubSpot data when used in Claude Code with MCP connected</div></div>
+    <div class="stat y"><div class="lbl">Add to any prompt</div><div class="val" style="font-size:14px">Extend it</div><div class="sub">Add "and export as a table" or "in bullet points" to change the output format</div></div>
   </div>
 </div>
 
