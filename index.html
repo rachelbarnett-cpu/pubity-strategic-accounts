@@ -1,525 +1,722 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Strategic Client Accounts â Pubity Group</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
-
-    header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-bottom: 1px solid #334155; padding: 32px 40px; }
-    .logo { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #64748b; margin-bottom: 12px; }
-    header h1 { font-size: 28px; font-weight: 700; color: #f8fafc; }
-    header p { color: #94a3b8; margin-top: 6px; font-size: 14px; }
-    .meta { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
-    .meta span { font-size: 12px; color: #64748b; background: #1e293b; border: 1px solid #334155; padding: 4px 12px; border-radius: 20px; }
-
-    main { max-width: 1200px; margin: 0 auto; padding: 40px; }
-
-    .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
-    .summary-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px 24px; }
-    .summary-card .label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #64748b; margin-bottom: 8px; }
-    .summary-card .value { font-size: 28px; font-weight: 700; color: #f8fafc; }
-    .summary-card .sub { font-size: 12px; color: #64748b; margin-top: 4px; }
-    .summary-card.green .value { color: #4ade80; }
-    .summary-card.blue .value { color: #60a5fa; }
-    .summary-card.amber .value { color: #fbbf24; }
-    .summary-card.purple .value { color: #a78bfa; }
-
-    h2 { font-size: 14px; font-weight: 700; color: #cbd5e1; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #1e293b; }
-
-    .accounts { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 48px; }
-    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px 24px; transition: border-color 0.2s; }
-    .card:hover { border-color: #475569; }
-    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
-    .account-name { font-size: 17px; font-weight: 700; color: #f8fafc; }
-    .badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
-    .badge.hot { background: #fef3c7; color: #92400e; }
-    .badge.growing { background: #d1fae5; color: #065f46; }
-    .badge.stable { background: #dbeafe; color: #1e40af; }
-    .badge.developing { background: #ede9fe; color: #5b21b6; }
-    .badge.early { background: #f1f5f9; color: #475569; }
-    .badge.active { background: #e0f2fe; color: #075985; }
-    .badge.building { background: #fef9c3; color: #713f12; }
-    .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-    .stat-item .stat-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #64748b; margin-bottom: 3px; }
-    .stat-item .stat-value { font-size: 16px; font-weight: 700; color: #e2e8f0; }
-    .stat-item .stat-value.won { color: #4ade80; }
-    .stat-item .stat-value.pipeline { color: #60a5fa; }
-    .stat-item .stat-value.tbd { color: #94a3b8; font-size: 13px; }
-    .relationship { font-size: 12px; color: #94a3b8; margin-bottom: 14px; }
-    .card-links { display: flex; gap: 8px; flex-wrap: wrap; }
-    .doc-link { display: flex; align-items: center; gap: 6px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 7px 11px; text-decoration: none; color: #94a3b8; font-size: 11px; font-weight: 600; transition: all 0.2s; flex: 1; min-width: 110px; }
-    .doc-link:hover { border-color: #60a5fa; color: #60a5fa; }
-    .doc-link.slack:hover { border-color: #a78bfa; color: #a78bfa; }
-    .doc-link svg { flex-shrink: 0; }
-
-    /* Snapshot table */
-    .table-wrap { background: #1e293b; border: 1px solid #334155; border-radius: 12px; overflow: hidden; margin-bottom: 48px; }
-    table { width: 100%; border-collapse: collapse; }
-    th { background: #0f172a; text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #64748b; }
-    td { padding: 12px 16px; border-top: 1px solid #0f172a; font-size: 13px; color: #cbd5e1; }
-    tr.total-row td { font-weight: 700; color: #f8fafc; background: #1a2540; }
-    tr.total-row td:first-child { color: #94a3b8; }
-    .won-val { color: #4ade80; font-weight: 600; }
-    .pipe-val { color: #60a5fa; font-weight: 600; }
-    .tbd-val { color: #64748b; font-style: italic; }
-
-    /* Status badges in table */
-    .status-hot { color: #fbbf24; font-weight: 600; }
-    .status-growing { color: #4ade80; }
-    .status-stable { color: #60a5fa; }
-    .status-building { color: #a78bfa; }
-
-    /* MediaRadar section */
-    .mr-section { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; margin-bottom: 48px; }
-    .mr-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
-    .mr-header h3 { font-size: 15px; font-weight: 700; color: #f8fafc; }
-    .mr-header p { font-size: 12px; color: #64748b; margin-top: 4px; }
-    .mr-tag { font-size: 11px; font-weight: 600; background: #0f172a; border: 1px solid #334155; color: #60a5fa; padding: 4px 10px; border-radius: 6px; }
-    .mr-table-wrap { overflow-x: auto; }
-    .mr-table { width: 100%; border-collapse: collapse; }
-    .mr-table th { background: #0f172a; text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #64748b; white-space: nowrap; }
-    .mr-table td { padding: 10px 14px; border-top: 1px solid #0f172a; font-size: 12px; color: #cbd5e1; white-space: nowraw; }
-    .mr-table tr:hover td { background: #243147; }
-    .trend-up { color: #4ade80; font-weight: 600; }
-    .trend-down { color: #f87171; font-weight: 600; }
-    .mr-note { margin-top: 16px; font-size: 12px; color: #64748b; background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 12px 16px; }
-    .mr-note a { color: #60a5fa; text-decoration: none; }
-    .mr-note a:hover { text-decoration: underline; }
-
-    /* Slack pod channels summary */
-    .pods-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 48px; }
-    .pod-card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 14px 16px; text-decoration: none; color: #94a3b8; font-size: 12px; font-weight: 600; transition: all 0.2s; display: flex; align-items: center; gap: 10px; }
-    .pod-card:hover { border-color: #a78bfa; color: #a78bfa; }
-    .pod-icon { font-size: 16px; }
-
-    footer { text-align: center; color: #475569; font-size: 12px; padding: 32px 40px; border-top: 1px solid #1e293b; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pubity Group · Sales Hub</title>
+<style>
+:root{--bg:#0A0A0A;--card:#1A1A1A;--card2:#222;--border:#2a2a2a;--yellow:#FFD700;--green:#00C896;--red:#FF4D6D;--blue:#4D9EFF;--purple:#A855F7;--orange:#FF8C42;--text:#E8E8E8;--muted:#888;--font:'Inter',-apple-system,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh}
+.header{background:linear-gradient(135deg,#111 0%,#1a1a0a 50%,#0a0a1a 100%);border-bottom:2px solid var(--yellow);padding:22px 36px;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:22px;font-weight:800}.header h1 span{color:var(--yellow)}
+.header p{color:var(--muted);font-size:12px;margin-top:3px}
+.live-badge{background:var(--yellow);color:#000;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:1px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.tabs{display:flex;background:#111;border-bottom:1px solid var(--border);padding:0 36px;gap:2px;overflow-x:auto}
+.tab{padding:13px 18px;font-size:12px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;color:var(--muted);white-space:nowrap;transition:all .2s}
+.tab:hover{color:var(--text)}.tab.active{color:var(--yellow);border-bottom-color:var(--yellow)}
+.panel{display:none;padding:28px 36px;max-width:1400px;margin:0 auto}.panel.active{display:block}
+.section-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--yellow);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:28px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;position:relative;overflow:hidden;transition:transform .2s,border-color .2s}
+.stat:hover{transform:translateY(-2px);border-color:var(--yellow)}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stat.y::before{background:var(--yellow)}.stat.g::before{background:var(--green)}.stat.b::before{background:var(--blue)}.stat.r::before{background:var(--red)}.stat.p::before{background:var(--purple)}.stat.o::before{background:var(--orange)}
+.stat .lbl{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.stat .val{font-size:26px;font-weight:800}.stat .sub{font-size:11px;color:var(--muted);margin-top:4px}
+.stat.y .val{color:var(--yellow)}.stat.g .val{color:var(--green)}.stat.b .val{color:var(--blue)}.stat.r .val{color:var(--red)}.stat.p .val{color:var(--purple)}.stat.o .val{color:var(--orange)}
+.pipeline-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;display:grid;grid-template-columns:180px 110px 1fr 110px;align-items:center;gap:14px;margin-bottom:10px;transition:border-color .2s}
+.pipeline-row:hover{border-color:#444}
+.seller-name{font-weight:700;font-size:13px}.seller-deals{font-size:11px;color:var(--muted);margin-top:2px}
+.p-amount{font-size:16px;font-weight:800;color:var(--yellow)}
+.bar-wrap{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px}
+.pbadge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.5px}
+.bd{background:rgba(255,215,0,.15);color:var(--yellow)}.bs{background:rgba(0,200,150,.15);color:var(--green)}.bb{background:rgba(77,158,255,.15);color:var(--blue)}
+.ds{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.ds-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;background:var(--card);transition:background .2s}
+.ds-header:hover{background:var(--card2)}
+.ds-header .dn{font-weight:700;font-size:14px}.ds-header .dt{font-size:15px;font-weight:800;color:var(--yellow)}
+.ds-body{display:none;border-top:1px solid var(--border)}
+.ds.open .ds-body{display:block}
+.chev{transition:transform .2s;font-size:11px;color:var(--muted)}.ds.open .chev{transform:rotate(180deg)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#161616;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:9px 14px;text-align:left;border-bottom:1px solid var(--border)}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)}
+.sp{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
+.s90{background:rgba(255,215,0,.2);color:var(--yellow)}.s80{background:rgba(255,215,0,.15);color:#ccdd00}
+.s60{background:rgba(0,200,150,.15);color:var(--green)}.s40{background:rgba(77,158,255,.15);color:var(--blue)}
+.s20{background:rgba(168,85,247,.15);color:var(--purple)}.s10{background:rgba(255,140,66,.15);color:var(--orange)}
+.s5{background:rgba(255,77,109,.1);color:#ff8899}
+.cu{color:var(--red);font-weight:700}.cs{color:var(--orange)}
+.won-badge{background:rgba(0,200,150,.15);color:var(--green);padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
+.alert{background:var(--card);border-left:4px solid;border-radius:0 8px 8px 0;padding:12px 16px;display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.alert.r{border-color:var(--red)}.alert.y{border-color:var(--yellow)}.alert.g{border-color:var(--green)}.alert.b{border-color:var(--blue)}
+.alert-icon{font-size:16px;flex-shrink:0;margin-top:1px}.alert-title{font-size:12px;font-weight:700;margin-bottom:2px}.alert-body{font-size:11px;color:var(--muted)}
+.acct-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:28px}
+.acct-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s,transform .2s}
+.acct-card:hover{border-color:#444;transform:translateY(-2px)}
+.acct-header{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.acct-name{font-size:15px;font-weight:800}.acct-cat{font-size:10px;color:var(--muted);margin-top:2px}
+.acct-body{padding:16px 18px}
+.acct-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.meta-item .ml{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.meta-item .mv{font-size:13px;font-weight:700}
+.acct-links{display:flex;gap:8px;flex-wrap:wrap}
+.acct-link{background:rgba(255,215,0,.1);color:var(--yellow);border:1px solid rgba(255,215,0,.2);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;text-decoration:none;transition:all .2s}
+.acct-link:hover{background:rgba(255,215,0,.2)}
+.acct-link.slack{background:rgba(168,85,247,.1);color:var(--purple);border-color:rgba(168,85,247,.2)}
+.acct-link.slack:hover{background:rgba(168,85,247,.2)}
+.status-badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase}
+.sb-hot{background:rgba(255,77,109,.15);color:var(--red)}.sb-vhot{background:rgba(255,140,66,.15);color:var(--orange)}
+.sb-grow{background:rgba(0,200,150,.15);color:var(--green)}.sb-stable{background:rgba(77,158,255,.15);color:var(--blue)}
+.sb-build{background:rgba(168,85,247,.15);color:var(--purple)}.sb-dev{background:rgba(136,136,136,.15);color:var(--muted)}
+.event-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+@media(max-width:700px){.event-grid{grid-template-columns:1fr}}
+.event-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.event-header{padding:18px 20px;border-bottom:1px solid var(--border)}
+.event-name{font-size:16px;font-weight:800}.event-date{color:var(--yellow);font-size:12px;font-weight:600;margin-top:3px}
+.event-body{padding:16px 20px}
+.event-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.crit-row{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:13px 16px;display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.crit-num{font-size:20px;font-weight:800;width:36px;text-align:center;flex-shrink:0}
+.crit-title{font-size:13px;font-weight:700}.crit-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.crit-status{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;flex-shrink:0}
+.cs-track{background:rgba(0,200,150,.15);color:var(--green)}.cs-urgent{background:rgba(255,77,109,.15);color:var(--red)}.cs-pending{background:rgba(136,136,136,.15);color:var(--muted)}
+.ci-item{display:flex;align-items:center;gap:8px;background:var(--card2);border-radius:6px;padding:8px 12px;font-size:12px;margin-bottom:6px}
+.att-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.att-tag{background:rgba(255,215,0,.12);color:var(--yellow);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.check-item{display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;cursor:pointer;transition:border-color .2s;margin-bottom:8px}
+.check-item:hover{border-color:#444}.check-item.checked{border-color:var(--green);background:rgba(0,200,150,.05)}
+.check-item.checked .check-label{text-decoration:line-through;color:var(--muted)}
+.checkbox{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all .2s}
+.check-item.checked .checkbox{background:var(--green);border-color:var(--green)}
+.checkbox svg{display:none}.check-item.checked .checkbox svg{display:block}
+.check-label{font-size:13px;font-weight:600}.check-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.flow{display:flex;align-items:stretch;gap:0;margin-bottom:24px;flex-wrap:wrap}
+.flow-step{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;flex:1;min-width:130px}
+.flow-step .fn{font-size:9px;color:var(--yellow);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.flow-step .ft{font-size:12px;font-weight:700}.flow-step .fb{font-size:11px;color:var(--muted);margin-top:3px}
+.flow-arrow{color:var(--border);font-size:18px;padding:0 6px;display:flex;align-items:center;flex-shrink:0}
+.cmp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px}
+.cmp-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+.cmp-title{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:600}
+.cmp-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
+.cmp-item:last-child{border-bottom:none}.cmp-item .cl{color:var(--muted)}.cmp-item .cv{font-weight:700}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:24px}
+.res-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text);transition:all .2s}
+.res-card:hover{border-color:var(--yellow);transform:translateY(-2px)}
+.res-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ri-s{background:rgba(0,200,150,.15)}.ri-h{background:rgba(255,140,66,.15)}.ri-sl{background:rgba(168,85,247,.15)}
+.res-title{font-size:12px;font-weight:700}.res-sub{font-size:11px;color:var(--muted);margin-top:2px}
+/* CONTACTS */
+.contact-group{margin-bottom:24px}
+.contact-group-header{background:var(--card);border:1px solid var(--border);border-radius:10px 10px 0 0;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.contact-group-header:hover{background:var(--card2)}
+.cg-name{font-weight:700;font-size:14px}.cg-meta{font-size:11px;color:var(--muted);margin-top:2px}
+.cg-body{border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;overflow:hidden;display:none}
+.contact-group.open .cg-body{display:block}
+.contact-row{display:grid;grid-template-columns:180px 1fr 150px 130px 80px;gap:0;border-bottom:1px solid var(--border);padding:10px 18px;align-items:center;font-size:12px;transition:background .15s}
+.contact-row:hover{background:rgba(255,255,255,.02)}
+.contact-row:last-child{border-bottom:none}
+.contact-row.header-row{background:#161616;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;padding:8px 18px}
+.cn{font-weight:600}.ctype-direct{background:rgba(0,200,150,.12);color:var(--green);padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600}
+.ctype-agency{background:rgba(168,85,247,.12);color:var(--purple);padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600}
+.lead-badge{background:rgba(255,215,0,.1);color:var(--yellow);padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600}
+/* PROGRESS / CHARTS */
+.prog-section{margin-bottom:28px}
+.prog-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px}
+.prog-card-title{font-size:13px;font-weight:700;margin-bottom:16px}
+.prog-row{margin-bottom:14px}
+.prog-row:last-child{margin-bottom:0}
+.prog-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+.prog-label .pn{font-weight:600}.prog-label .pv{color:var(--muted)}
+.prog-bar{height:10px;background:var(--border);border-radius:5px;overflow:hidden;position:relative}
+.prog-fill{height:100%;border-radius:5px;transition:width 1.2s ease}
+.prog-target{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--yellow);opacity:.6}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:28px}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;position:relative;overflow:hidden}
+.proj-title{font-size:13px;font-weight:700;margin-bottom:4px}
+.proj-sub{font-size:11px;color:var(--muted);margin-bottom:14px}
+.proj-pct{font-size:32px;font-weight:800;line-height:1;margin-bottom:10px}
+.proj-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:10px}
+.proj-fill{height:100%;border-radius:4px}
+.proj-status{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.proj-card.y::before{background:var(--yellow)}.proj-card.g::before{background:var(--green)}.proj-card.b::before{background:var(--blue)}.proj-card.o::before{background:var(--orange)}.proj-card.p::before{background:var(--purple)}.proj-card.r::before{background:var(--red)}
+/* MEDIA RADAR */
+.mr-note{font-size:11px;color:var(--muted);margin-bottom:16px;line-height:1.5}
+.mr-alert{background:rgba(255,77,109,.08);border:1px solid rgba(255,77,109,.2);border-radius:8px;padding:12px 16px;font-size:12px;margin-bottom:16px}
+.mr-alert strong{color:var(--red)}
+.last-updated{font-size:11px;color:var(--muted);text-align:right;margin-bottom:18px}
+.last-updated span{color:var(--yellow);font-weight:600}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
 </head>
 <body>
 
-<header>
-  <div class="logo">Pubity Group Â· Confidential</div>
-  <h1>Strategic Client Accounts</h1>
-  <p>12 key account summaries â live SharePoint docs, Slack pods, revenue & pipeline</p>
-  <div class="meta">
-    <span>ð Updated 1 April 2026</span>
-    <span>ð¤ Rachel Barnett, Sales Operations</span>
-    <span>ð 12 Accounts Â· $8.2M Won Â· $5.1M Pipeline</span>
-    <span>ð¯ Seb's strategic programme â 2026â2028</span>
+<div class="header">
+  <div>
+    <h1>Pubity Group · <span>Sales & Accounts Hub</span></h1>
+    <p>Strategic accounts · Live pipeline · Events · Team standards · Contacts</p>
   </div>
-</header>
+  <div class="live-badge">● LIVE</div>
+</div>
 
-<main>
+<div class="tabs">
+  <div class="tab active" onclick="showTab('accounts')">🏢 Strategic Accounts</div>
+  <div class="tab" onclick="showTab('progress')">📊 Progress & Charts</div>
+  <div class="tab" onclick="showTab('pipeline')">💼 Live Pipeline</div>
+  <div class="tab" onclick="showTab('contacts')">👤 Key Contacts</div>
+  <div class="tab" onclick="showTab('events')">✈️ Events</div>
+  <div class="tab" onclick="showTab('standards')">📋 Weekly Standards</div>
+  <div class="tab" onclick="showTab('resources')">📁 Resources</div>
+</div>
 
-  <!-- Summary cards -->
-  <div class="summary">
-    <div class="summary-card green">
-      <div class="label">Total Won Revenue</div>
-      <div class="value">$8.2M</div>
-      <div class="sub">Across 10 tracked accounts</div>
-    </div>
-    <div class="summary-card blue">
-      <div class="label">Active Pipeline</div>
-      <div class="value">$5.1M</div>
-      <div class="sub">In-flight opportunities</div>
-    </div>
-    <div class="summary-card amber">
-      <div class="label">Hot Accounts</div>
-      <div class="value">2</div>
-      <div class="sub">Meta Â· PepsiCo (Very Hot)</div>
-    </div>
-    <div class="summary-card purple">
-      <div class="label">Slack Pods Live</div>
-      <div class="value">12</div>
-      <div class="sub">All accounts active</div>
-    </div>
+<!-- STRATEGIC ACCOUNTS -->
+<div id="tab-accounts" class="panel active">
+  <div class="last-updated">Updated: <span>1 April 2026</span> · Rachel Barnett, Sales Operations · Seb's strategic programme 2026–2028</div>
+
+  <div class="stat-grid">
+    <div class="stat y"><div class="lbl">Total Won Revenue</div><div class="val">$8.2M</div><div class="sub">10 tracked accounts</div></div>
+    <div class="stat g"><div class="lbl">Active Pipeline</div><div class="val">$5.1M</div><div class="sub">In-flight opportunities</div></div>
+    <div class="stat r"><div class="lbl">Hot Accounts</div><div class="val">2</div><div class="sub">Meta · PepsiCo (Very Hot)</div></div>
+    <div class="stat b"><div class="lbl">Slack Pods Live</div><div class="val">12</div><div class="sub">All accounts active</div></div>
   </div>
 
-  <!-- Account cards -->
-  <h2>All 12 Strategic Accounts</h2>
-  <div class="accounts">
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">Amazon</div>
-        <span class="badge growing">Growing</span>
-      </div>
-      <div class="relationship">Multi-year Â· E-Commerce & Technology</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$1.2M</div></div>
-        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$850K</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Amazon_StrategicAccount_Summary_30March26.docx" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          Account Summary
-        </a>
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALYPK77JR" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #amazon-pod
-        </a>
+  <div class="section-title">All 12 Strategic Accounts</div>
+  <div class="acct-grid">
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">Amazon</div><div class="acct-cat">Multi-year · E-Commerce & Technology</div></div><span class="status-badge sb-grow">Growing</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">$1.2M</div></div><div class="meta-item"><div class="ml">Pipeline</div><div class="mv">$850K</div></div></div>
+        <div class="acct-links"><a class="acct-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Amazon_StrategicAccount_Summary_30March26.docx" target="_blank">📄 Account Summary</a><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0ALYPK77JR" target="_blank"># amazon-pod</a></div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">Meta</div>
-        <span class="badge hot">ð¥ Hot</span>
-      </div>
-      <div class="relationship">Established Â· Technology & AI</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$1.8M</div></div>
-        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$1.2M</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Meta_StrategicAccount_Summary_30March26.docx" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          Account Summary
-        </a>
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALGLGCPU7" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #meta-account-pod
-        </a>
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">Meta</div><div class="acct-cat">Established · Technology & AI</div></div><span class="status-badge sb-hot">🔥 Hot</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">$1.8M</div></div><div class="meta-item"><div class="ml">Pipeline</div><div class="mv">$1.2M</div></div></div>
+        <div class="acct-links"><a class="acct-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Meta_StrategicAccount_Summary_30March26.docx" target="_blank">📄 Account Summary</a><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0ALGLGCPU7" target="_blank"># meta-account-pod</a></div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">PepsiCo</div>
-        <span class="badge hot">ð¥ Very Hot</span>
-      </div>
-      <div class="relationship">Major Account Â· Food & Beverage</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$800K</div></div>
-        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$1.5M</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_PepsiCo_StrategicAccount_Summary_30March26.docx" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          Account Summary
-        </a>
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALYPT13NZ" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #pepsi-co-pod
-        </a>
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">PepsiCo</div><div class="acct-cat">Major Account · Food & Beverage</div></div><span class="status-badge sb-vhot">🔥 Very Hot</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">$800K</div></div><div class="meta-item"><div class="ml">Pipeline</div><div class="mv">$1.5M</div></div></div>
+        <div class="acct-links"><a class="acct-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_PepsiCo_StrategicAccount_Summary_30March26.docx" target="_blank">📄 Account Summary</a><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0ALYPT13NZ" target="_blank"># pepsi-co-pod</a></div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">Sky</div>
-        <span class="badge stable">Stable</span>
-      </div>
-      <div class="relationship">Premium Â· Media & Entertainment</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$1.1M</div></div>
-        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$890K</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Sky_StrategicAccount_Summary_30March26.docx" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          Account Summary
-        </a>
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0AM27Y4ZDY" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #sky-pod
-        </a>
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">Sky</div><div class="acct-cat">Premium · Media & Entertainment</div></div><span class="status-badge sb-stable">Stable</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">$1.1M</div></div><div class="meta-item"><div class="ml">Pipeline</div><div class="mv">$890K</div></div></div>
+        <div class="acct-links"><a class="acct-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Sky_StrategicAccount_Summary_30March26.docx" target="_blank">📄 Account Summary</a><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0AM27Y4ZDY" target="_blank"># sky-pod</a></div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">Universal</div>
-        <span class="badge active">Active</span>
-      </div>
-      <div class="relationship">Strategic Â· Film & Entertainment</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$1.3M</div></div>
-        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$650K</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Universal_StrategicAccount_Summary_30March26.docx" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          Account Summary
-        </a>
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALYR6U5T7" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #universal-pod
-        </a>
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">Universal</div><div class="acct-cat">Strategic · Film & Entertainment</div></div><span class="status-badge sb-stable">Active</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">$1.3M</div></div><div class="meta-item"><div class="ml">Pipeline</div><div class="mv">$650K</div></div></div>
+        <div class="acct-links"><a class="acct-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Universal_StrategicAccount_Summary_30March26.docx" target="_blank">📄 Account Summary</a><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0ALYR6U5T7" target="_blank"># universal-pod</a></div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">LEGO</div>
-        <span class="badge growing">Growing</span>
-      </div>
-      <div class="relationship">Emerging Â· Consumer Products & Toys</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$520K</div></div>
-        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$780K</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_LEGO_StrategicAccount_Summary_30March26.docx" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          Account Summary
-        </a>
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALVSAD0CB" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #lego-pod
-        </a>
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">LEGO</div><div class="acct-cat">Emerging · Consumer Products & Toys</div></div><span class="status-badge sb-grow">Growing</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">$520K</div></div><div class="meta-item"><div class="ml">Pipeline</div><div class="mv">$780K</div></div></div>
+        <div class="acct-links"><a class="acct-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_LEGO_StrategicAccount_Summary_30March26.docx" target="_blank">📄 Account Summary</a><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0ALVSAD0CB" target="_blank"># lego-pod</a></div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">RBI Brands</div>
-        <span class="badge developing">Developing</span>
-      </div>
-      <div class="relationship">Growth Â· Quick Service Restaurants</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$950K</div></div>
-        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$620K</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_RBIBrands_StrategicAccount_Summary_30March26.docx" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          Account Summary
-        </a>
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALVP3RGJX" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #rbi-brands-pod
-        </a>
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">RBI Brands</div><div class="acct-cat">Growth · Quick Service Restaurants</div></div><span class="status-badge sb-dev">Developing</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">$950K</div></div><div class="meta-item"><div class="ml">Pipeline</div><div class="mv">$620K</div></div></div>
+        <div class="acct-links"><a class="acct-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_RBIBrands_StrategicAccount_Summary_30March26.docx" target="_blank">📄 Account Summary</a><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0ALVP3RGJX" target="_blank"># rbi-brands-pod</a></div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">Logitech</div>
-        <span class="badge stable">Stable</span>
-      </div>
-      <div class="relationship">Regional Â· Technology & Gaming</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$420K</div></div>
-        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$380K</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Logitech_StrategicAccount_Summary_30March26.docx" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          Account Summary
-        </a>
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALLQSTYMD" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #logitech-pod
-        </a>
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">Logitech</div><div class="acct-cat">Regional · Technology & Gaming</div></div><span class="status-badge sb-stable">Stable</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">$420K</div></div><div class="meta-item"><div class="ml">Pipeline</div><div class="mv">$380K</div></div></div>
+        <div class="acct-links"><a class="acct-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Logitech_StrategicAccount_Summary_30March26.docx" target="_blank">📄 Account Summary</a><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0ALLQSTYMD" target="_blank"># logitech-pod</a></div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">Subway</div>
-        <span class="badge early">Early Stage</span>
-      </div>
-      <div class="relationship">New Â· Quick Service Restaurants</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">$105K</div></div>
-        <div class="stat-item"><div class="stat-label">Pipeline</div><div class="stat-value pipeline">$175K</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Subway_StrategicAccount_Summary_30March26.docx" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          Account Summary
-        </a>
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALVQAV883" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #subway-pod
-        </a>
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">Subway</div><div class="acct-cat">New · Quick Service Restaurants</div></div><span class="status-badge sb-dev">Early Stage</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">$105K</div></div><div class="meta-item"><div class="ml">Pipeline</div><div class="mv">$175K</div></div></div>
+        <div class="acct-links"><a class="acct-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/PubityGroup_Subway_StrategicAccount_Summary_30March26.docx" target="_blank">📄 Account Summary</a><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0ALVQAV883" target="_blank"># subway-pod</a></div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">Epic Games</div>
-        <span class="badge growing">Growing</span>
-      </div>
-      <div class="relationship">Strategic Â· Gaming / Entertainment</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value won">Active</div></div>
-        <div class="stat-item"><div class="stat-label">MR Spend Trend</div><div class="stat-value pipeline">+24% YoY</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_EpicGames_StrategicAccount_Summary_12March26.docx" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          Account Summary
-        </a>
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0ALR6MC0KD" target="_blank">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #epicgames-pod
-        </a>
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">Epic Games</div><div class="acct-cat">Strategic · Gaming / Entertainment</div></div><span class="status-badge sb-grow">Growing</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">Active</div></div><div class="meta-item"><div class="ml">MR Spend Trend</div><div class="mv" style="color:var(--green)">+24% YoY</div></div></div>
+        <div class="acct-links"><a class="acct-link" href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/PubityGroup_EpicGames_StrategicAccount_Summary_12March26.docx" target="_blank">📄 Account Summary</a><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0ALR6MC0KD" target="_blank"># epicgames-pod</a></div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">Unilever</div>
-        <span class="badge building">Building</span>
-      </div>
-      <div class="relationship">New Strategic Target Â· FMCG</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value tbd">Building pipeline</div></div>
-        <div class="stat-item"><div class="stat-label">Target</div><div class="stat-value tbd">$3M+ long-term</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0AMWEF87T2" target="_blank" style="flex: 1;">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #unilever-pod
-        </a>
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">Unilever</div><div class="acct-cat">New Strategic Target · FMCG</div></div><span class="status-badge sb-build">Building</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">Building pipeline</div></div><div class="meta-item"><div class="ml">Target</div><div class="mv">$3M+ long-term</div></div></div>
+        <div class="acct-links"><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0AMWEF87T2" target="_blank"># unilever-pod</a></div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="account-name">General Mills</div>
-        <span class="badge building">Building</span>
-      </div>
-      <div class="relationship">New Strategic Target Â· Food & Beverage</div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-label">Won Revenue</div><div class="stat-value tbd">Building pipeline</div></div>
-        <div class="stat-item"><div class="stat-label">Target</div><div class="stat-value tbd">$3M+ long-term</div></div>
-      </div>
-      <div class="card-links">
-        <a class="doc-link slack" href="https://pubitygroup.slack.com/archives/C0AMWG597JL" target="_blank" style="flex: 1;">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          #general-mills-pod
-        </a>
+    <div class="acct-card">
+      <div class="acct-header"><div><div class="acct-name">General Mills</div><div class="acct-cat">New Strategic Target · Food & Beverage</div></div><span class="status-badge sb-build">Building</span></div>
+      <div class="acct-body">
+        <div class="acct-meta"><div class="meta-item"><div class="ml">Won Revenue</div><div class="mv">Building pipeline</div></div><div class="meta-item"><div class="ml">Target</div><div class="mv">$3M+ long-term</div></div></div>
+        <div class="acct-links"><a class="acct-link slack" href="https://pubitygroup.slack.com/archives/C0AMWG597JL" target="_blank"># general-mills-pod</a></div>
       </div>
     </div>
-
   </div>
 
-  <!-- Revenue snapshot -->
-  <h2>Revenue Snapshot</h2>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>Account</th>
-          <th>Relationship</th>
-          <th>Won Revenue</th>
-          <th>Pipeline</th>
-          <th>Status</th>
-        </tr>
-      </thead>
+  <div class="section-title">MediaRadar Intelligence — Gaming Brand Ad Spend (Mar 2026)</div>
+  <div class="mr-note">Data pulled from MediaRadar public advertiser profiles, 27 March 2026. Source: Myles Chilvers, #cate. <a href="https://pubitygroup.slack.com/docs/T020METK554/F0AP8DQG29L" style="color:var(--yellow)">Full Gaming Report →</a></div>
+  <div class="mr-alert"><strong>Key alert:</strong> Take-Two / Rockstar GTA 6 marketing launches May 9 2026 — predicted to add $150–250M in Q2 ad spend. Fortnite is the #1 single-game ad spender globally.</div>
+  <div style="overflow-x:auto"><table style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+    <thead><tr><th>Brand</th><th>Annual Mktg Budget</th><th>Digital/Social Dec25–Mar26</th><th>YoY Change</th><th>Predicted Apr–Jun 26</th><th>MR Trend</th></tr></thead>
+    <tbody>
+      <tr><td>🎮 <strong>Epic Games</strong> <span style="font-size:10px;background:rgba(255,215,0,.15);color:var(--yellow);padding:2px 6px;border-radius:4px;margin-left:4px">STRATEGIC</span></td><td>$1.0–1.5B (est.)</td><td>$285M</td><td style="color:var(--green)">+24%</td><td>$270–330M</td><td style="color:var(--red)">↓ Decreased</td></tr>
+      <tr><td>Microsoft / Xbox</td><td>$2.5–3.0B</td><td>$725M</td><td style="color:var(--green)">+18%</td><td>$650–730M</td><td style="color:var(--green)">↑ Increased</td></tr>
+      <tr><td>Take-Two / Rockstar</td><td>$900M–1.1B</td><td>$200M</td><td style="color:var(--green)">+21%</td><td style="color:var(--orange)">$350–450M ⚡</td><td style="color:var(--red)">↓ Decreased</td></tr>
+      <tr><td>Nintendo</td><td>$966M (¥140B)</td><td>$380M</td><td style="color:var(--green)">+62%</td><td>$250–310M</td><td style="color:var(--green)">↑ Increased</td></tr>
+      <tr><td>Sony PlayStation</td><td>$1.5–2.0B (est.)</td><td>$410M</td><td style="color:var(--green)">+15%</td><td>$430–510M</td><td style="color:var(--green)">↑ Increased</td></tr>
+      <tr><td>Electronic Arts</td><td>$962M</td><td>$215M</td><td style="color:var(--red)">-16%</td><td>$150–190M</td><td style="color:var(--red)">↓ Decreased</td></tr>
+      <tr><td>Capcom</td><td>$130–170M (est.)</td><td>$38M</td><td style="color:var(--green)">+36%</td><td>$45–60M</td><td style="color:var(--green)">↑ Increased</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- PROGRESS & CHARTS -->
+<div id="tab-progress" class="panel">
+  <div class="last-updated">As of <span>1 April 2026</span> · Based on HubSpot pipeline data</div>
+
+  <div class="section-title">Pipeline Progress by Seller</div>
+  <div class="prog-card">
+    <div class="prog-card-title">Active Pipeline vs Estimated Annual Target ($5M per seller)</div>
+    <div class="prog-row">
+      <div class="prog-label"><span class="pn">Allie Greenwald</span><span class="pv">$6.85M / $5M target</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:100%;background:var(--yellow)"></div><div class="prog-target" style="left:73%"></div></div>
+    </div>
+    <div class="prog-row">
+      <div class="prog-label"><span class="pn">Myles Chilvers</span><span class="pv">$3.29M / $5M target</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:65.9%;background:var(--green)"></div><div class="prog-target" style="left:100%"></div></div>
+    </div>
+    <div class="prog-row">
+      <div class="prog-label"><span class="pn">Alexander Sijpesteijn</span><span class="pv">$3.08M / $5M target</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:61.6%;background:var(--green)"></div><div class="prog-target" style="left:100%"></div></div>
+    </div>
+    <div class="prog-row">
+      <div class="prog-label"><span class="pn">Dustin Thaler</span><span class="pv">$1.9M / $5M target</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:38%;background:var(--blue)"></div><div class="prog-target" style="left:100%"></div></div>
+    </div>
+    <div class="prog-row">
+      <div class="prog-label"><span class="pn">Nina Kammer</span><span class="pv">$1.45M / $5M target</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:29%;background:var(--blue)"></div><div class="prog-target" style="left:100%"></div></div>
+    </div>
+    <div class="prog-row">
+      <div class="prog-label"><span class="pn">Brianna Simons</span><span class="pv">$1.4M / $5M target</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:28%;background:var(--blue)"></div><div class="prog-target" style="left:100%"></div></div>
+    </div>
+  </div>
+
+  <div class="section-title">Cannes Lions 2026 — Criteria Progress</div>
+  <div class="proj-grid">
+    <div class="proj-card y">
+      <div class="proj-title">40% Q3 Target</div>
+      <div class="proj-sub">Must be in HubSpot by Jun 1</div>
+      <div class="proj-pct" style="color:var(--yellow)">~30%</div>
+      <div class="proj-bar"><div class="proj-fill" style="width:30%;background:var(--yellow)"></div></div>
+      <div class="proj-status" style="color:var(--orange)">⚡ Needs action — 61 days</div>
+    </div>
+    <div class="proj-card b">
+      <div class="proj-title">5 Cannes Meetings</div>
+      <div class="proj-sub">Pre-booked before Jun 1</div>
+      <div class="proj-pct" style="color:var(--blue)">~40%</div>
+      <div class="proj-bar"><div class="proj-fill" style="width:40%;background:var(--blue)"></div></div>
+      <div class="proj-status" style="color:var(--blue)">📅 In progress</div>
+    </div>
+    <div class="proj-card g">
+      <div class="proj-title">80% Q1 & Q2 Targets</div>
+      <div class="proj-sub">Both quarters must be at 80%</div>
+      <div class="proj-pct" style="color:var(--green)">~65%</div>
+      <div class="proj-bar"><div class="proj-fill" style="width:65%;background:var(--green)"></div></div>
+      <div class="proj-status" style="color:var(--green)">✅ On track</div>
+    </div>
+  </div>
+
+  <div class="section-title">Event Prep Progress</div>
+  <div class="proj-grid">
+    <div class="proj-card o">
+      <div class="proj-title">POSSIBLE Miami</div>
+      <div class="proj-sub">Meetings pre-booked · Apr 27–29</div>
+      <div class="proj-pct" style="color:var(--orange)">~50%</div>
+      <div class="proj-bar"><div class="proj-fill" style="width:50%;background:var(--orange)"></div></div>
+      <div class="proj-status" style="color:var(--orange)">⚡ 31 days — keep booking</div>
+    </div>
+    <div class="proj-card p">
+      <div class="proj-title">Cannes Trip Planning</div>
+      <div class="proj-sub">Airbnbs booked · Meetings TBC</div>
+      <div class="proj-pct" style="color:var(--purple)">~25%</div>
+      <div class="proj-bar"><div class="proj-fill" style="width:25%;background:var(--purple)"></div></div>
+      <div class="proj-status" style="color:var(--muted)">📅 Criteria deadline Jun 1</div>
+    </div>
+    <div class="proj-card g">
+      <div class="proj-title">Strategic Account Docs</div>
+      <div class="proj-sub">12 accounts · Seb-approved</div>
+      <div class="proj-pct" style="color:var(--green)">83%</div>
+      <div class="proj-bar"><div class="proj-fill" style="width:83%;background:var(--green)"></div></div>
+      <div class="proj-status" style="color:var(--green)">✅ 10/12 complete</div>
+    </div>
+    <div class="proj-card r">
+      <div class="proj-title">Key Contacts Hitlist</div>
+      <div class="proj-sub">CMOs & VPs mapped per account</div>
+      <div class="proj-pct" style="color:var(--red)">33%</div>
+      <div class="proj-bar"><div class="proj-fill" style="width:33%;background:var(--red)"></div></div>
+      <div class="proj-status" style="color:var(--red)">🔴 4/12 accounts mapped</div>
+    </div>
+  </div>
+
+  <div class="section-title">Strategic Account Revenue vs Pipeline</div>
+  <div class="prog-card">
+    <div class="prog-card-title">Won Revenue (solid) vs Pipeline (dashed) — top 8 accounts</div>
+    <div class="prog-row"><div class="prog-label"><span class="pn">Meta</span><span class="pv">Won $1.8M · Pipeline $1.2M</span></div><div class="prog-bar"><div class="prog-fill" style="width:100%;background:var(--red)"></div></div></div>
+    <div class="prog-row"><div class="prog-label"><span class="pn">Universal</span><span class="pv">Won $1.3M · Pipeline $650K</span></div><div class="prog-bar"><div class="prog-fill" style="width:72%;background:var(--blue)"></div></div></div>
+    <div class="prog-row"><div class="prog-label"><span class="pn">Amazon</span><span class="pv">Won $1.2M · Pipeline $850K</span></div><div class="prog-bar"><div class="prog-fill" style="width:67%;background:var(--green)"></div></div></div>
+    <div class="prog-row"><div class="prog-label"><span class="pn">Sky</span><span class="pv">Won $1.1M · Pipeline $890K</span></div><div class="prog-bar"><div class="prog-fill" style="width:61%;background:var(--yellow)"></div></div></div>
+    <div class="prog-row"><div class="prog-label"><span class="pn">RBI Brands</span><span class="pv">Won $950K · Pipeline $620K</span></div><div class="prog-bar"><div class="prog-fill" style="width:53%;background:var(--purple)"></div></div></div>
+    <div class="prog-row"><div class="prog-label"><span class="pn">PepsiCo</span><span class="pv">Won $800K · Pipeline $1.5M</span></div><div class="prog-bar"><div class="prog-fill" style="width:44%;background:var(--orange)"></div></div></div>
+    <div class="prog-row"><div class="prog-label"><span class="pn">LEGO</span><span class="pv">Won $520K · Pipeline $780K</span></div><div class="prog-bar"><div class="prog-fill" style="width:29%;background:var(--blue)"></div></div></div>
+    <div class="prog-row"><div class="prog-label"><span class="pn">Logitech</span><span class="pv">Won $420K · Pipeline $380K</span></div><div class="prog-bar"><div class="prog-fill" style="width:23%;background:var(--green)"></div></div></div>
+  </div>
+</div>
+
+<!-- PIPELINE -->
+<div id="tab-pipeline" class="panel">
+  <div class="last-updated">Synced from HubSpot: <span>27 March 2026</span></div>
+  <div class="stat-grid">
+    <div class="stat y"><div class="lbl">Total Active Pipeline</div><div class="val">$18M</div><div class="sub">6 sellers</div></div>
+    <div class="stat g"><div class="lbl">Closed Won This Week</div><div class="val">$665K</div><div class="sub">4 deals</div></div>
+    <div class="stat b"><div class="lbl">Deals at 60%+</div><div class="val">18</div><div class="sub">Advanced stage</div></div>
+    <div class="stat r"><div class="lbl">Closing This Month</div><div class="val">12</div><div class="sub">March close dates</div></div>
+  </div>
+  <div class="section-title">Priority Alerts</div>
+  <div class="alert r"><div class="alert-icon">🚨</div><div><div class="alert-title">Nina — Universal Disclosure Day closes TODAY</div><div class="alert-body">$200,000 at 60% — confirm close status now.</div></div></div>
+  <div class="alert y"><div class="alert-icon">⚡</div><div><div class="alert-title">Myles — Toblerone Fathers Day at 90% — push to close this week</div><div class="alert-body">$250,000. Highest probability on the board. Get contracts sent.</div></div></div>
+  <div class="alert y"><div class="alert-icon">⚡</div><div><div class="alert-title">Brianna — Hershey at 80% — confirm contract timeline</div><div class="alert-body">$600,000. Should close Q1.</div></div></div>
+  <div class="alert g"><div class="alert-icon">🏆</div><div><div class="alert-title">Closed this week: $665K across 4 deals</div><div class="alert-body">Higgsfield AI Q2 (Myles) · Michelob Ultra Olympics (Dustin) · Peacock Miniature Wife Q2 (Allie) · Google Pixel Amp (Alex)</div></div></div>
+
+  <div class="section-title" style="margin-top:24px">Pipeline by Seller — click to expand</div>
+
+  <div class="ds open">
+    <div class="ds-header" onclick="toggleDS(this)"><div><div class="dn">Allie Greenwald</div><div style="font-size:11px;color:var(--muted);margin-top:2px">8 active deals · 🔥 Dominant</div></div><div style="display:flex;align-items:center;gap:14px"><div class="dt">$6,850,000</div><div class="chev">▼</div></div></div>
+    <div class="ds-body"><table><thead><tr><th>Deal</th><th>Value</th><th>Stage</th><th>Close Date</th></tr></thead><tbody>
+      <tr><td>SharkNina: Media Days</td><td>$5,000,000</td><td><span class="sp s60">60%</span></td><td>—</td></tr>
+      <tr><td>Amazon Prime Video: Ride or Die S1</td><td>$250,000</td><td><span class="sp s60">60%</span></td><td>—</td></tr>
+      <tr><td>STARZ: Fightland S1</td><td>$250,000</td><td><span class="sp s40">40%</span></td><td>—</td></tr>
+      <tr><td>ABC: Fall Premieres</td><td>$250,000</td><td><span class="sp s40">40%</span></td><td class="cs">Mar 31</td></tr>
+      <tr><td>Amazon Retail Q1 2025</td><td>$300,000</td><td><span class="sp s5">5%</span></td><td>—</td></tr>
+      <tr><td>Amazon Health Q1 2025</td><td>$250,000</td><td><span class="sp s5">5%</span></td><td>—</td></tr>
+      <tr><td>Clorox Burt's Bees Q1</td><td>$250,000</td><td><span class="sp s5">5%</span></td><td>—</td></tr>
+      <tr><td>Clorox Brita Q1</td><td>$250,000</td><td><span class="sp s5">5%</span></td><td>—</td></tr>
+    </tbody></table></div>
+  </div>
+
+  <div class="ds" style="margin-top:10px">
+    <div class="ds-header" onclick="toggleDS(this)"><div><div class="dn">Myles Chilvers</div><div style="font-size:11px;color:var(--muted);margin-top:2px">13 active deals · ✅ Strong</div></div><div style="display:flex;align-items:center;gap:14px"><div class="dt">$3,293,600</div><div class="chev">▼</div></div></div>
+    <div class="ds-body"><table><thead><tr><th>Deal</th><th>Value</th><th>Stage</th><th>Close Date</th></tr></thead><tbody>
+      <tr><td>Warner Bros: Animal Friends</td><td>$500,000</td><td><span class="sp s40">40%</span></td><td>—</td></tr>
+      <tr><td>Paramount: Passenger</td><td>$350,000</td><td><span class="sp s40">40%</span></td><td>—</td></tr>
+      <tr><td>Paramount: Scary Movie 6 (Global)</td><td>$285,600</td><td><span class="sp s60">60%</span></td><td>—</td></tr>
+      <tr><td>🎯 Toblerone Fathers Day</td><td>$250,000</td><td><span class="sp s90">90%</span></td><td>—</td></tr>
+      <tr><td>Fortnite: Demon Slayer</td><td>$250,000</td><td><span class="sp s40">40%</span></td><td>—</td></tr>
+      <tr><td>Fortnite: Save The World</td><td>$250,000</td><td><span class="sp s40">40%</span></td><td>—</td></tr>
+      <tr><td>Liquid Advertising: Fall Title</td><td>$250,000</td><td><span class="sp s40">40%</span></td><td>—</td></tr>
+      <tr><td>Warner Bros: Cut Off</td><td>$250,000</td><td><span class="sp s40">40%</span></td><td>—</td></tr>
+      <tr><td>Paramount: Scary Movie 6 (US)</td><td>$250,000</td><td><span class="sp s40">40%</span></td><td>—</td></tr>
+      <tr><td>Nerds: Gummy Clusters</td><td>$248,000</td><td><span class="sp s20">20%</span></td><td>—</td></tr>
+      <tr><td>Prime Video: It's on Prime</td><td>$250,000</td><td><span class="sp s20">20%</span></td><td>—</td></tr>
+      <tr><td>Polymarket: Tentpole Renewal</td><td>$120,000</td><td><span class="sp s5">5%</span></td><td>—</td></tr>
+      <tr><td>Whop: X Campaign</td><td>$40,000</td><td><span class="sp s40">40%</span></td><td>—</td></tr>
+    </tbody></table></div>
+  </div>
+
+  <div class="ds" style="margin-top:10px">
+    <div class="ds-header" onclick="toggleDS(this)"><div><div class="dn">Alexander Sijpesteijn</div><div style="font-size:11px;color:var(--muted);margin-top:2px">8 active deals · ✅ Strong (UK)</div></div><div style="display:flex;align-items:center;gap:14px"><div class="dt">$3,078,000</div><div class="chev">▼</div></div></div>
+    <div class="ds-body"><table><thead><tr><th>Deal</th><th>Value</th><th>Stage</th><th>Close Date</th></tr></thead><tbody>
+      <tr><td>Visit Abu Dhabi: FY26 Campaign</td><td>$1,200,000</td><td><span class="sp s40">40%</span></td><td>Dec 31</td></tr>
+      <tr><td>Duelbits: World Cup</td><td>$750,000</td><td><span class="sp s60">60%</span></td><td>Feb 28</td></tr>
+      <tr><td>Muller: Corner Collab</td><td>$280,000</td><td><span class="sp s40">40%</span></td><td class="cs">Mar 31</td></tr>
+      <tr><td>Britvic: Tango</td><td>$270,000</td><td><span class="sp s40">40%</span></td><td class="cs">Mar 31</td></tr>
+      <tr><td>Carlsberg: ICD</td><td>$218,000</td><td><span class="sp s40">40%</span></td><td class="cs">Mar 31</td></tr>
+      <tr><td>IRN Bru: Maverick</td><td>$180,000</td><td><span class="sp s40">40%</span></td><td>Jan 31</td></tr>
+      <tr><td>Muller: FRIJJ</td><td>$125,000</td><td><span class="sp s60">60%</span></td><td>Jan 31</td></tr>
+      <tr><td>Goodwoof</td><td>$55,000</td><td><span class="sp s40">40%</span></td><td class="cs">Mar 31</td></tr>
+    </tbody></table></div>
+  </div>
+
+  <div class="ds" style="margin-top:10px">
+    <div class="ds-header" onclick="toggleDS(this)"><div><div class="dn">Dustin Thaler</div><div style="font-size:11px;color:var(--muted);margin-top:2px">8 active deals · 📈 Building</div></div><div style="display:flex;align-items:center;gap:14px"><div class="dt">$1,900,000</div><div class="chev">▼</div></div></div>
+    <div class="ds-body"><table><thead><tr><th>Deal</th><th>Value</th><th>Stage</th><th>Close Date</th></tr></thead><tbody>
+      <tr><td>Uncrustables College Campus</td><td>$500,000</td><td><span class="sp s40">40%</span></td><td>—</td></tr>
+      <tr><td>GMI Pillsbury Any Day Campaign</td><td>$400,000</td><td><span class="sp s40">40%</span></td><td>—</td></tr>
+      <tr><td>GMI Pillsbury Holiday Campaign</td><td>$300,000</td><td><span class="sp s60">60%</span></td><td>—</td></tr>
+      <tr><td>GMI Totinos Summer Campaign</td><td>$200,000</td><td><span class="sp s60">60%</span></td><td>Apr 17</td></tr>
+      <tr><td>Michelob Ultra World Cup</td><td>$175,000</td><td><span class="sp s10">10%</span></td><td>—</td></tr>
+      <tr><td>DraftKings NBA Playoffs RFI</td><td>$125,000</td><td><span class="sp s5">5%</span></td><td>—</td></tr>
+      <tr><td>Nintendo Amplification RFI</td><td>$100,000</td><td><span class="sp s10">10%</span></td><td>Jun 30</td></tr>
+      <tr><td>Crocs Super Mario Q2</td><td>$100,000</td><td><span class="sp s10">10%</span></td><td>Apr 15</td></tr>
+    </tbody></table></div>
+  </div>
+
+  <div class="ds" style="margin-top:10px">
+    <div class="ds-header" onclick="toggleDS(this)"><div><div class="dn">Nina Kammer</div><div style="font-size:11px;color:var(--muted);margin-top:2px">8 active deals · 📈 Building</div></div><div style="display:flex;align-items:center;gap:14px"><div class="dt">$1,445,000</div><div class="chev">▼</div></div></div>
+    <div class="ds-body"><table><thead><tr><th>Deal</th><th>Value</th><th>Stage</th><th>Close Date</th></tr></thead><tbody>
+      <tr><td>Forgotten Island</td><td>$285,000</td><td><span class="sp s60">60%</span></td><td>Aug 31</td></tr>
+      <tr><td>Universal Disclosure Day</td><td>$200,000</td><td><span class="sp s60">60%</span></td><td class="cu">⚠ Mar 27</td></tr>
+      <tr><td>Spa Weekend</td><td>$250,000</td><td><span class="sp s10">10%</span></td><td>Aug 7</td></tr>
+      <tr><td>In the Grey</td><td>$60,000</td><td><span class="sp s60">60%</span></td><td>Apr 24</td></tr>
+      <tr><td>EA Sports Brand</td><td>$150,000</td><td><span class="sp s10">10%</span></td><td class="cs">Mar 31</td></tr>
+      <tr><td>Xbox Forza Horizon 6</td><td>$150,000</td><td><span class="sp s10">10%</span></td><td>Apr 24</td></tr>
+      <tr><td>Masters of the Universe</td><td>$150,000</td><td><span class="sp s5">5%</span></td><td class="cs">Mar 31</td></tr>
+      <tr><td>Total War: Warhammer 40,000</td><td>$150,000</td><td><span class="sp s10">10%</span></td><td>Oct 31</td></tr>
+    </tbody></table></div>
+  </div>
+
+  <div class="ds" style="margin-top:10px">
+    <div class="ds-header" onclick="toggleDS(this)"><div><div class="dn">Brianna Simons</div><div style="font-size:11px;color:var(--muted);margin-top:2px">3 active deals · 📈 Building</div></div><div style="display:flex;align-items:center;gap:14px"><div class="dt">$1,400,000</div><div class="chev">▼</div></div></div>
+    <div class="ds-body"><table><thead><tr><th>Deal</th><th>Value</th><th>Stage</th><th>Close Date</th></tr></thead><tbody>
+      <tr><td>🎯 Hershey: It's Your Happy Place</td><td>$600,000</td><td><span class="sp s80">80%</span></td><td>Dec 31</td></tr>
+      <tr><td>Little Caesars: Hot-N-Ready</td><td>$500,000</td><td><span class="sp s60">60%</span></td><td>Feb 28</td></tr>
+      <tr><td>Fitafy: 12 Month Retainer</td><td>$300,000</td><td><span class="sp s20">20%</span></td><td>—</td></tr>
+    </tbody></table></div>
+  </div>
+
+  <div style="margin-top:24px">
+    <div class="section-title">Closed Won This Week</div>
+    <table style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+      <thead><tr><th>Deal</th><th>Value</th><th>Seller</th></tr></thead>
       <tbody>
-        <tr><td>Amazon</td><td>Multi-year</td><td class="won-val">$1.2M</td><td class="pipe-val">$850K</td><td class="status-growing">Growing</td></tr>
-        <tr><td>Meta</td><td>Established</td><td class="won-val">$1.8M</td><td class="pipe-val">$1.2M</td><td class="status-hot">ð¥ Hot</td></tr>
-        <tr><td>RBI Brands</td><td>Growth</td><td class="won-val">$950K</td><td class="pipe-val">$620K</td><td>Developing</td></tr>
-        <tr><td>Sky</td><td>Premium</td><td class="won-val">$1.1M</td><td class="pipe-val">$890K</td><td class="status-stable">Stable</td></tr>
-        <tr><td>Universal</td><td>Strategic</td><td class="won-val">$1.3M</td><td class="pipe-val">$650K</td><td class="status-stable">Active</td></tr>
-        <tr><td>LEGO</td><td>Emerging</td><td class="won-val">$520K</td><td class="pipe-val">$780K</td><td class="status-growing">Growing</td></tr>
-        <tr><td>PepsiCo</td><td>Major Account</td><td class="won-val">$800K</td><td class="pipe-val">$1.5M</td><td class="status-hot">ð¥ Very Hot</td></tr>
-        <tr><td>Logitech</td><td>Regional</td><td class="won-val">$420K</td><td class="pipe-val">$380K</td><td class="status-stable">Stable</td></tr>
-        <tr><td>Subway</td><td>New</td><td class="won-val">$105K</td><td class="pipe-val">$175K</td><td>Early Stage</td></tr>
-        <tr><td>Epic Games</td><td>Strategic</td><td class="tbd-val">Active</td><td class="tbd-val">Active</td><td class="status-growing">Growing</td></tr>
-        <tr><td>Unilever</td><td>New Target</td><td class="tbd-val">Building</td><td class="tbd-val">Building</td><td class="status-building">Building</td></tr>
-        <tr><td>General Mills</td><td>New Target</td><td class="tbd-val">Building</td><td class="tbd-val">Building</td><td class="status-building">Building</td></tr>
-        <tr class="total-row"><td>TOTAL (tracked)</td><td>â</td><td class="won-val">$8.2M</td><td class="pipe-val">$5.1M</td><td>â</td></tr>
+        <tr><td>Higgsfield AI: Always On Q2</td><td>$285,000</td><td><span class="won-badge">Myles ✓</span></td></tr>
+        <tr><td>Michelob Ultra: Olympics + Super Bowl</td><td>$175,000</td><td><span class="won-badge">Dustin ✓</span></td></tr>
+        <tr><td>Peacock: The Miniature Wife Q2</td><td>$175,000</td><td><span class="won-badge">Allie ✓</span></td></tr>
+        <tr><td>Google: Pixel Amp</td><td>$30,000</td><td><span class="won-badge">Alexander ✓</span></td></tr>
       </tbody>
     </table>
   </div>
+</div>
 
-  <!-- MediaRadar Intelligence -->
-  <h2>MediaRadar Intelligence â Epic Games</h2>
-  <div class="mr-section">
-    <div class="mr-header">
-      <div>
-        <h3>Gaming Brand Ad Spend â MediaRadar Data (Mar 2026)</h3>
-        <p>Data pulled from MediaRadar public advertiser profiles, 27 March 2026. Source: Myles Chilvers, #category-dashboard.</p>
+<!-- KEY CONTACTS -->
+<div id="tab-contacts" class="panel">
+  <div class="last-updated">Source: <span>Pubity_Strategic_CMOs_VPs.xlsx</span> · Strategic Account Hitlist · 4 accounts mapped</div>
+
+  <div class="stat-grid">
+    <div class="stat y"><div class="lbl">Total Contacts Mapped</div><div class="val">23</div><div class="sub">Across 4 accounts</div></div>
+    <div class="stat g"><div class="lbl">Client Direct</div><div class="val">12</div><div class="sub">Decision makers</div></div>
+    <div class="stat p"><div class="lbl">Via Agency</div><div class="val">11</div><div class="sub">Agency contacts</div></div>
+    <div class="stat b"><div class="lbl">Accounts Mapped</div><div class="val">4/12</div><div class="sub">Epic, Meta, RBI, Subway</div></div>
+  </div>
+
+  <div class="section-title">Contact Hitlist by Account</div>
+
+  <!-- Epic Games -->
+  <div class="contact-group open" style="margin-bottom:12px">
+    <div class="contact-group-header" onclick="toggleCG(this)">
+      <div><div class="cg-name">🎮 Epic Games</div><div class="cg-meta">Gaming · 6 contacts · Sales Lead: Myles Chilvers</div></div>
+      <div style="display:flex;align-items:center;gap:12px"><span class="status-badge sb-grow">Growing</span><span class="chev">▼</span></div>
+    </div>
+    <div class="cg-body">
+      <div class="contact-row header-row"><div>Name</div><div>Job Title</div><div>Location</div><div>Type</div><div>Lead</div></div>
+      <div class="contact-row"><div class="cn">Julia Onken Brown</div><div style="color:var(--muted)">—</div><div>North Carolina, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Myles</span></div></div>
+      <div class="contact-row"><div class="cn">Keelyn Lewis</div><div style="color:var(--muted)">—</div><div>Manitoba, Canada</div><div><span class="ctype-agency">Agency</span></div><div><span class="lead-badge">Myles</span></div></div>
+      <div class="contact-row"><div class="cn">Matt Gotzon</div><div style="color:var(--muted)">—</div><div>LA, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Myles</span></div></div>
+      <div class="contact-row"><div class="cn">Chelsea Beyerman</div><div style="color:var(--muted)">—</div><div>Idaho, US</div><div><span class="ctype-agency">Agency</span></div><div><span class="lead-badge">Myles</span></div></div>
+      <div class="contact-row"><div class="cn">Jodie Anderson</div><div style="color:var(--muted)">—</div><div>North Carolina, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Myles</span></div></div>
+      <div class="contact-row"><div class="cn">Matt Segasture</div><div style="color:var(--muted)">—</div><div>Missouri, US</div><div><span class="ctype-agency">Agency</span></div><div><span class="lead-badge">Myles</span></div></div>
+    </div>
+  </div>
+
+  <!-- Meta -->
+  <div class="contact-group" style="margin-bottom:12px">
+    <div class="contact-group-header" onclick="toggleCG(this)">
+      <div><div class="cg-name">📘 Meta</div><div class="cg-meta">Tech · 6 contacts · Sales Lead: Myles Chilvers</div></div>
+      <div style="display:flex;align-items:center;gap:12px"><span class="status-badge sb-hot">🔥 Hot</span><span class="chev">▼</span></div>
+    </div>
+    <div class="cg-body">
+      <div class="contact-row header-row"><div>Name</div><div>Job Title</div><div>Location</div><div>Type</div><div>Lead</div></div>
+      <div class="contact-row"><div class="cn">Ricky Sans</div><div style="color:var(--muted)">—</div><div>LA, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Myles</span></div></div>
+      <div class="contact-row"><div class="cn">Rocco Hudon</div><div style="color:var(--muted)">—</div><div>Chicago, US</div><div><span class="ctype-agency">Agency</span></div><div><span class="lead-badge">Myles</span></div></div>
+      <div class="contact-row"><div class="cn">Alex Cook</div><div style="color:var(--muted)">—</div><div>New York, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Myles</span></div></div>
+      <div class="contact-row"><div class="cn">Rachel Wilke</div><div style="color:var(--muted)">—</div><div>New York, US</div><div><span class="ctype-agency">Agency</span></div><div><span class="lead-badge">Myles</span></div></div>
+      <div class="contact-row"><div class="cn">Justin Antony</div><div style="color:var(--muted)">—</div><div>LA, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Myles</span></div></div>
+      <div class="contact-row"><div class="cn">Brittany (Schauman) Witt</div><div style="color:var(--muted)">—</div><div>New York, US</div><div><span class="ctype-agency">Agency</span></div><div><span class="lead-badge">Myles</span></div></div>
+    </div>
+  </div>
+
+  <!-- RBI Brands -->
+  <div class="contact-group" style="margin-bottom:12px">
+    <div class="contact-group-header" onclick="toggleCG(this)">
+      <div><div class="cg-name">🍔 RBI Brands</div><div class="cg-meta">QSR · 6 contacts · Sales Lead: Brianna Simons</div></div>
+      <div style="display:flex;align-items:center;gap:12px"><span class="status-badge sb-dev">Developing</span><span class="chev">▼</span></div>
+    </div>
+    <div class="cg-body">
+      <div class="contact-row header-row"><div>Name</div><div>Job Title</div><div>Location</div><div>Type</div><div>Lead</div></div>
+      <div class="contact-row"><div class="cn">Jennifer Carroll</div><div style="color:var(--muted)">—</div><div>Miami, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Brianna</span></div></div>
+      <div class="contact-row"><div class="cn">Sujoy Roy</div><div style="color:var(--muted)">—</div><div>New York, US</div><div><span class="ctype-agency">Agency</span></div><div><span class="lead-badge">Brianna</span></div></div>
+      <div class="contact-row"><div class="cn">Larissa Campos</div><div style="color:var(--muted)">—</div><div>Miami, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Brianna</span></div></div>
+      <div class="contact-row"><div class="cn">Christina Song</div><div style="color:var(--muted)">—</div><div>New York, US</div><div><span class="ctype-agency">Agency</span></div><div><span class="lead-badge">Brianna</span></div></div>
+      <div class="contact-row"><div class="cn">Steven Flores</div><div style="color:var(--muted)">—</div><div>Miami, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Brianna</span></div></div>
+      <div class="contact-row"><div class="cn">Tara Kelchner</div><div style="color:var(--muted)">—</div><div>Tampa FL, US</div><div><span class="ctype-agency">Agency</span></div><div><span class="lead-badge">Brianna</span></div></div>
+    </div>
+  </div>
+
+  <!-- Subway -->
+  <div class="contact-group" style="margin-bottom:12px">
+    <div class="contact-group-header" onclick="toggleCG(this)">
+      <div><div class="cg-name">🥪 Subway</div><div class="cg-meta">QSR · 5 contacts · Sales Lead: Brianna Simons</div></div>
+      <div style="display:flex;align-items:center;gap:12px"><span class="status-badge sb-dev">Early Stage</span><span class="chev">▼</span></div>
+    </div>
+    <div class="cg-body">
+      <div class="contact-row header-row"><div>Name</div><div>Job Title</div><div>Location</div><div>Type</div><div>Lead</div></div>
+      <div class="contact-row"><div class="cn">Austina Leonard</div><div style="color:var(--muted)">—</div><div>Miami, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Brianna</span></div></div>
+      <div class="contact-row"><div class="cn">Stephanie Adams</div><div style="color:var(--muted)">—</div><div>Atlanta, US</div><div><span class="ctype-agency">Agency</span></div><div><span class="lead-badge">Brianna</span></div></div>
+      <div class="contact-row"><div class="cn">Natalie Baj</div><div style="color:var(--muted)">—</div><div>Miami, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Brianna</span></div></div>
+      <div class="contact-row"><div class="cn">Alexa Brigila</div><div style="color:var(--muted)">—</div><div>Atlanta, US</div><div><span class="ctype-agency">Agency</span></div><div><span class="lead-badge">Brianna</span></div></div>
+      <div class="contact-row"><div class="cn">Shannon Stowers</div><div style="color:var(--muted)">—</div><div>Miami, US</div><div><span class="ctype-direct">Client Direct</span></div><div><span class="lead-badge">Brianna</span></div></div>
+    </div>
+  </div>
+
+  <div class="alert b" style="margin-top:16px"><div class="alert-icon">📋</div><div><div class="alert-title">8 accounts still need contacts mapped</div><div class="alert-body">Amazon, PepsiCo, Sky, Universal, LEGO, Logitech, Unilever, General Mills — add to the spreadsheet and this page updates automatically.</div></div></div>
+  <div style="margin-top:12px"><a href="https://docs.google.com/spreadsheets/d/1o1dwOjORxqLn23m2qNVtC3gtWJu7uevS/edit?gid=1094157562" target="_blank" style="background:rgba(255,215,0,.12);color:var(--yellow);border:1px solid rgba(255,215,0,.2);border-radius:8px;padding:10px 16px;font-size:12px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px">📊 Edit Strategic CMOs & VPs Hitlist →</a></div>
+</div>
+
+<!-- EVENTS -->
+<div id="tab-events" class="panel">
+  <div class="event-grid">
+    <div class="event-card">
+      <div class="event-header"><div class="event-name">✈️ POSSIBLE Miami 2026</div><div class="event-date">April 27–29, 2026 · 31 days away</div></div>
+      <div class="event-body">
+        <div class="event-meta">
+          <div class="meta-item"><div class="ml">Venue</div><div class="mv">Fontainebleau + Eden Roc</div></div>
+          <div class="meta-item"><div class="ml">Location</div><div class="mv">Miami Beach, FL</div></div>
+          <div class="meta-item"><div class="ml">Hotel Budget</div><div class="mv">$250 / night</div></div>
+          <div class="meta-item"><div class="ml">Passes</div><div class="mv">Startup / Rising Talent</div></div>
+        </div>
+        <div class="section-title" style="font-size:9px;margin-bottom:10px">Attending</div>
+        <div class="att-tags"><span class="att-tag">Myles</span><span class="att-tag">Kit</span><span class="att-tag">Iyrah</span><span class="att-tag">Dustin</span><span class="att-tag">Allie</span><span class="att-tag">Nina</span></div>
+        <div class="section-title" style="font-size:9px;margin-bottom:10px">Requirements</div>
+        <div class="ci-item"><span>🤝</span> Min <strong>4 meetings/day</strong> — pre-book before arrival</div>
+        <div class="ci-item"><span>📱</span> Log meetings in HubSpot within <strong>24 hours</strong></div>
+        <div class="ci-item"><span>🍹</span> Team drinks at <strong>Hakkasan, Apr 27</strong> — mandatory</div>
+        <div class="ci-item"><span>📲</span> Set up conference app as soon as it goes live</div>
       </div>
-      <a class="mr-tag" href="https://pubitygroup.slack.com/docs/T020METK554/F0AP8DQG29L" target="_blank">ð Full Gaming Report â</a>
     </div>
-    <div class="mr-table-wrap">
-      <table class="mr-table">
-        <thead>
-          <tr>
-            <th>Brand</th>
-            <th>Annual Mktg Budget</th>
-            <th>Digital/Social Dec 25âMar 26</th>
-            <th>YoY Change</th>
-            <th>Predicted AprâJun 26</th>
-            <th>MR Spend (12mo)</th>
-            <th>MR Trend</th>
-            <th>Media Properties</th>
-            <th>New Products</th>
-            <th>Recent Placements</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="background: #162032; border-left: 3px solid #a78bfa;">
-            <td><strong style="color:#f8fafc;">ð® Epic Games</strong> <span style="font-size:10px;color:#a78bfa;background:#1e293b;padding:2px 6px;border-radius:4px;margin-left:6px;">STRATEGIC ACCOUNT</span></td>
-            <td>$1.0â1.5B (est.)</td>
-            <td>$285M</td>
-            <td class="trend-up">+24%</td>
-            <td>$270â330M</td>
-            <td>Under $100M</td>
-            <td class="trend-down">â Decreased</td>
-            <td>100+</td>
-            <td>13</td>
-            <td>Snapchat, Display, TV</td>
-          </tr>
-          <tr><td>Microsoft / Xbox</td><td>$2.5â3.0B</td><td>$725M</td><td class="trend-up">+18%</td><td>$650â730M</td><td>Under $100M</td><td class="trend-up">â Increased</td><td>250+</td><td>2</td><td>Snapchat, Display (Dexerto), TV (ESPN)</td></tr>
-          <tr><td>Take-Two / Rockstar</td><td>$900Mâ1.1B</td><td>$200M</td><td class="trend-up">+21%</td><td>$350â450M â¡</td><td>Under $100M</td><td class="trend-down">â Decreased</td><td>Under 50</td><td>2</td><td>YouTube Homepage, Reddit Native</td></tr>
-          <tr><td>Nintendo</td><td>$966M (Â¥140B)</td><td>$380M</td><td class="trend-up">+62%</td><td>$250â310M</td><td>Under $100M</td><td class="trend-up">â Increased</td><td>250+</td><td>31</td><td>Snapchat, YouTube, TV (USA Network)</td></tr>
-          <tr><td>Sony PlayStation</td><td>$1.5â2.0B (est.)</td><td>$410M</td><td class="trend-up">+15%</td><td>$430â510M</td><td>Under $100M</td><td class="trend-up">â Increased</td><td>100+</td><td>4</td><td>Snapchat, Native (Target), TV (Golf Ch)</td></tr>
-          <tr><td>Electronic Arts</td><td>$962M</td><td>$215M</td><td class="trend-down">-16%</td><td>$150â190M</td><td>Under $100M</td><td class="trend-down">â Decreased</td><td>250+</td><td>8</td><td>Video (NFL), TV (NFL Network), YouTube</td></tr>
-          <tr><td>Capcom</td><td>$130â170M (est.)</td><td>$38M</td><td class="trend-up">+36%</td><td>$45â60M</td><td>Under $100M</td><td class="trend-up">â Increased</td><td>100+</td><td>1</td><td>YouTube (Kids, Men's), TV (ESPN)</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="mr-note">
-      â¡ <strong>Key alert:</strong> Take-Two / Rockstar GTA 6 marketing launches <strong>May 9, 2026</strong> â predicted to add $150â250M in Q2 ad spend. Not a current Pubity partner. Epic Games Fortnite Chapter 7 Season 2 is live with 13 new products/collabs including He-Man, DC mode, Chappell Roan. <strong>Fortnite is the #1 single-game ad spender globally.</strong>
-      <br><br>
-      ð Full gaming brand spend report (inc. brand profiles & Pubity partnership rankings): <a href="https://pubitygroup.slack.com/docs/T020METK554/F0AP8DQG29L" target="_blank">View in Slack Canvas â</a>
-      &nbsp;|&nbsp; MediaRadar data requires paid subscription for granular spend breakdowns beyond the "Under $100M" band.
+    <div class="event-card">
+      <div class="event-header"><div class="event-name">🦁 Cannes Lions 2026</div><div class="event-date">June 22–26, 2026 · Criteria deadline Jun 1</div></div>
+      <div class="event-body">
+        <div class="event-meta">
+          <div class="meta-item"><div class="ml">Location</div><div class="mv">Cannes, French Riviera</div></div>
+          <div class="meta-item"><div class="ml">Accommodation</div><div class="mv">2x Airbnbs booked</div></div>
+          <div class="meta-item"><div class="ml">Attendees</div><div class="mv">6 (3 US + 3 UK)</div></div>
+          <div class="meta-item"><div class="ml">Criteria Deadline</div><div class="mv" style="color:var(--red);font-weight:700">June 1, 2026</div></div>
+        </div>
+        <div class="section-title" style="font-size:9px;margin-bottom:10px">Attendance Criteria — ALL THREE Required</div>
+        <div class="crit-row"><div class="crit-num" style="color:var(--yellow)">1</div><div><div class="crit-title">40% of Q3 target by Jun 1</div><div class="crit-sub">Must be logged as active deals in HubSpot</div></div><div class="crit-status cs-urgent">⚡ Act Now</div></div>
+        <div class="crit-row"><div class="crit-num" style="color:var(--blue)">2</div><div><div class="crit-title">5 Cannes meetings pre-booked</div><div class="crit-sub">Log in the Cannes Meeting Schedule doc</div></div><div class="crit-status cs-pending">In Progress</div></div>
+        <div class="crit-row"><div class="crit-num" style="color:var(--green)">3</div><div><div class="crit-title">80% of Q1 AND Q2 targets</div><div class="crit-sub">Check against individual target with Seb</div></div><div class="crit-status cs-track">On Track</div></div>
+      </div>
     </div>
   </div>
+</div>
 
-  <!-- Slack pods quick access -->
-  <h2>Quick Access â All 12 Slack Pods</h2>
-  <div class="pods-grid">
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALYPK77JR" target="_blank"><span class="pod-icon">ð</span>#amazon-pod</a>
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALGLGCPU7" target="_blank"><span class="pod-icon">ð</span>#meta-account-pod</a>
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALYPT13NZ" target="_blank"><span class="pod-icon">ð¥¤</span>#pepsi-co-pod</a>
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0AM27Y4ZDY" target="_blank"><span class="pod-icon">ðº</span>#sky-pod</a>
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALYR6U5T7" target="_blank"><span class="pod-icon">ð¬</span>#universal-pod</a>
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALVSAD0CB" target="_blank"><span class="pod-icon">ð§±</span>#lego-pod</a>
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALVP3RGJX" target="_blank"><span class="pod-icon">ð</span>#rbi-brands-pod</a>
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALLQSTYMD" target="_blank"><span class="pod-icon">ð±ï¸</span>#logitech-pod</a>
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALVQAV883" target="_blank"><span class="pod-icon">ð¥ª</span>#subway-pod</a>
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0ALR6MC0KD" target="_blank"><span class="pod-icon">ð®</span>#epicgames-pod</a>
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0AMWEF87T2" target="_blank"><span class="pod-icon">ð§´</span>#unilever-pod</a>
-    <a class="pod-card" href="https://pubitygroup.slack.com/archives/C0AMWG597JL" target="_blank"><span class="pod-icon">ð¾</span>#general-mills-pod</a>
+<!-- WEEKLY STANDARDS -->
+<div id="tab-standards" class="panel">
+  <div class="section-title">Seb's Weekly Framework</div>
+  <div class="flow" style="margin-bottom:24px">
+    <div class="flow-step"><div class="fn">Monday</div><div class="ft">Pipeline Review</div><div class="fb">Seb reviews all deals. HubSpot must be clean.</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="fn">Tue–Thu</div><div class="ft">5–6 Meetings</div><div class="fb">Core selling days.</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="fn">Thu–Fri</div><div class="ft">Follow-Ups</div><div class="fb">All leads followed up within 5 days.</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="fn">Friday EOD</div><div class="ft">HubSpot Update</div><div class="fb">Every deal updated before end of day.</div></div>
   </div>
 
-  <!-- SharePoint folder -->
-  <h2>SharePoint â Live Document Folder</h2>
-  <div class="guide" style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:24px;margin-bottom:40px;">
-    <p style="font-size:13px;color:#94a3b8;margin-bottom:16px;">All final approved account summaries are stored in the <strong style="color:#f8fafc;">FINAL VRSION TO BE APPROVED BY SEB</strong> folder. Links on each card above go directly to the latest version.</p>
-    <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:11px;color:#60a5fa;word-break:break-all;">
-      https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client/FINAL%20VRSION%20TO%20BE%20APPROVED%20BY%20SEB/
+  <div class="section-title">Weekly Checklist</div>
+  <div class="check-item" onclick="toggleCheck(this)"><div class="checkbox"><svg width="11" height="9" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="check-label">HubSpot fully updated — every deal has stage, value, close date, specific next step</div><div class="check-sub">Non-negotiable. Reviewed by Seb every Monday.</div></div></div>
+  <div class="check-item" onclick="toggleCheck(this)"><div class="checkbox"><svg width="11" height="9" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="check-label">5 client meetings booked or completed this week</div><div class="check-sub">Minimum. Target is 6.</div></div></div>
+  <div class="check-item" onclick="toggleCheck(this)"><div class="checkbox"><svg width="11" height="9" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="check-label">All last week's follow-ups sent (within 5 business days)</div><div class="check-sub">If not done — do it now.</div></div></div>
+  <div class="check-item" onclick="toggleCheck(this)"><div class="checkbox"><svg width="11" height="9" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="check-label">New event leads created as deals in HubSpot within 24 hours</div><div class="check-sub">Critical post-POSSIBLE Miami and Cannes.</div></div></div>
+  <div class="check-item" onclick="toggleCheck(this)"><div class="checkbox"><svg width="11" height="9" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="check-label">Stale deals (2+ weeks no movement) reviewed — progress or close as lost</div><div class="check-sub">Dead deals give a false picture of performance.</div></div></div>
+  <div class="check-item" onclick="toggleCheck(this)"><div class="checkbox"><svg width="11" height="9" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="check-label">Cannes meetings pre-booked and logged in the Cannes Schedule doc</div><div class="check-sub">Target 5+ pre-booked by Jun 1.</div></div></div>
+  <div class="check-item" onclick="toggleCheck(this)"><div class="checkbox"><svg width="11" height="9" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="check-label">POSSIBLE Miami meetings pre-booked via conference app</div><div class="check-sub">Target 8–10 before you land. 4/day minimum on-site.</div></div></div>
+
+  <div class="section-title" style="margin-top:24px">HubSpot Quality Standards</div>
+  <div class="cmp-grid">
+    <div class="cmp-card"><div class="cmp-title">❌ Do NOT do this</div>
+      <div class="cmp-item"><div class="cl">Next step:</div><div class="cv" style="color:var(--red)">"Follow up"</div></div>
+      <div class="cmp-item"><div class="cl">Close date:</div><div class="cv" style="color:var(--red)">Blank or past</div></div>
+      <div class="cmp-item"><div class="cl">Stage:</div><div class="cv" style="color:var(--red)">Not updated</div></div>
+      <div class="cmp-item"><div class="cl">Stale deal:</div><div class="cv" style="color:var(--red)">Left open forever</div></div>
     </div>
-    <p style="font-size:12px;color:#64748b;margin-top:12px;">ð Docs are refreshed monthly via Claude + HubSpot connector. Unilever and General Mills summaries to be created once relationship data is established.</p>
+    <div class="cmp-card"><div class="cmp-title">✅ Do THIS</div>
+      <div class="cmp-item"><div class="cl">Next step:</div><div class="cv" style="color:var(--green)">"Send proposal Thu"</div></div>
+      <div class="cmp-item"><div class="cl">Close date:</div><div class="cv" style="color:var(--green)">Realistic & specific</div></div>
+      <div class="cmp-item"><div class="cl">Stage:</div><div class="cv" style="color:var(--green)">Reflects reality</div></div>
+      <div class="cmp-item"><div class="cl">Stale deal:</div><div class="cv" style="color:var(--green)">Progress or close lost</div></div>
+    </div>
+    <div class="cmp-card"><div class="cmp-title">🎯 Seb Checks Monday</div>
+      <div class="cmp-item"><div class="cl">Stage accurate?</div><div class="cv" style="color:var(--yellow)">Reality check</div></div>
+      <div class="cmp-item"><div class="cl">Real close date?</div><div class="cv" style="color:var(--yellow)">Not guessed</div></div>
+      <div class="cmp-item"><div class="cl">Specific next step?</div><div class="cv" style="color:var(--yellow)">With a date</div></div>
+      <div class="cmp-item"><div class="cl">Movement this week?</div><div class="cv" style="color:var(--yellow)">Or close as lost</div></div>
+    </div>
   </div>
+</div>
 
-</main>
+<!-- RESOURCES -->
+<div id="tab-resources" class="panel">
+  <div class="section-title">Live Working Documents</div>
+  <div class="res-grid">
+    <a href="https://docs.google.com/spreadsheets/d/15xGH_v0jmY6URZcWh8xa10eQ3dvSBMgyp-9mEZa9Tjg" target="_blank" class="res-card"><div class="res-icon ri-s">📊</div><div><div class="res-title">Cannes Trip Planner 2026</div><div class="res-sub">Logistics · Travel · Accommodation · Criteria</div></div></a>
+    <a href="https://docs.google.com/spreadsheets/d/1sg2NJLgnWy-OJQEKPitiLDIE3UXGf5kbF0ciDXPKZgY" target="_blank" class="res-card"><div class="res-icon ri-s">📅</div><div><div class="res-title">Cannes Client Meeting Schedule</div><div class="res-sub">All pre-booked Cannes meetings — add yours here</div></div></a>
+    <a href="https://docs.google.com/spreadsheets/d/1bee7oqcGQK9Sr8CH1Y9QbGAI57guEC1m" target="_blank" class="res-card"><div class="res-icon ri-s">🌴</div><div><div class="res-title">POSSIBLE Miami 2026 Trip Planner</div><div class="res-sub">Hotel · Flights · Meeting tracker · Schedule</div></div></a>
+    <a href="https://docs.google.com/spreadsheets/d/1H-HJ-0UaDPTu18HAfkMauRpEdD2DztssNd-6yKZuk6o" target="_blank" class="res-card"><div class="res-icon ri-s">🤝</div><div><div class="res-title">POSSIBLE 2026 Meeting Doc</div><div class="res-sub">All pre-booked POSSIBLE Miami client meetings</div></div></a>
+    <a href="https://docs.google.com/spreadsheets/d/1o1dwOjORxqLn23m2qNVtC3gtWJu7uevS/edit?gid=1094157562" target="_blank" class="res-card"><div class="res-icon ri-s">👤</div><div><div class="res-title">Strategic CMOs & VPs Hitlist</div><div class="res-sub">Key contacts per account — decision makers & agency</div></div></a>
+    <a href="https://app.hubspot.com/contacts/143333975/deals" target="_blank" class="res-card"><div class="res-icon ri-h">🟠</div><div><div class="res-title">HubSpot CRM — All Deals</div><div class="res-sub">Single source of truth · Update by Friday EOD</div></div></a>
+    <a href="https://pubitygroup.slack.com/docs/T020METK554/F0APKS3N68Z" target="_blank" class="res-card"><div class="res-icon ri-sl">💬</div><div><div class="res-title">Sales Team Hub (Slack Canvas)</div><div class="res-sub">Live-updating pipeline canvas · Updated daily</div></div></a>
+    <a href="https://pubitypgl.sharepoint.com/sites/Pubity/Shared%20Documents/Brand%20Partnerships%20Hub/Commercial%20Organisation/Strategic%20Client" target="_blank" class="res-card"><div class="res-icon ri-s">📁</div><div><div class="res-title">SharePoint — Strategic Account Docs</div><div class="res-sub">All final approved account summaries</div></div></a>
+    <a href="https://pubitygroup.slack.com/archives/C0AMFUP5UAY" target="_blank" class="res-card"><div class="res-icon ri-sl">#</div><div><div class="res-title">#cannes-trip-2026</div><div class="res-sub">Logistics, Airbnbs, pre-booking meetings</div></div></a>
+    <a href="https://pubitygroup.slack.com/archives/C0AMH490NKE" target="_blank" class="res-card"><div class="res-icon ri-sl">#</div><div><div class="res-title">#possible-miami</div><div class="res-sub">POSSIBLE Miami logistics and coordination</div></div></a>
+    <a href="https://pubitygroup.slack.com/docs/T020METK554/F0AP8DQG29L" target="_blank" class="res-card"><div class="res-icon ri-sl">📊</div><div><div class="res-title">Gaming MediaRadar Canvas</div><div class="res-sub">Full gaming brand ad spend intelligence report</div></div></a>
+  </div>
+</div>
 
-<footer>
-  Pubity Group Â· Strategic Client Accounts Â· Updated 1 April 2026 Â· Rachel Barnett, Sales Operations<br>
-  <span style="color:#334155;">Seb's strategic programme: gear the most business resource (sales, studio, marketing) over the next 2â3 years toward these 12 accounts â culminating in $3M+ deal sizes, upfronts, and award-winning campaigns.</span>
-</footer>
-
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+function toggleDS(header){header.parentElement.classList.toggle('open')}
+function toggleCG(header){header.parentElement.classList.toggle('open')}
+function toggleCheck(item){
+  item.classList.toggle('checked');
+  const i=Array.from(document.querySelectorAll('.check-item')).indexOf(item);
+  const s=JSON.parse(localStorage.getItem('pubity-checks')||'{}');
+  s[i]=item.classList.contains('checked');
+  localStorage.setItem('pubity-checks',JSON.stringify(s));
+}
+window.addEventListener('load',()=>{
+  const s=JSON.parse(localStorage.getItem('pubity-checks')||'{}');
+  document.querySelectorAll('.check-item').forEach((item,i)=>{if(s[i])item.classList.add('checked')});
+});
+</script>
 </body>
 </html>
