@@ -174,6 +174,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
   <div class="tab" onclick="showTab('events')">✈️ Events</div>
   <div class="tab" onclick="showTab('standards')">📋 Weekly Standards</div>
   <div class="tab" onclick="showTab('crm-audit')">🔍 CRM Audit</div>
+  <div class="tab" onclick="showTab('checklists')">✅ Seller Checklists</div>
   <div class="tab" onclick="showTab('skills')">⚡ Claude Skills</div>
   <div class="tab" onclick="showTab('resources')">📁 Resources</div>
 </div>
@@ -808,6 +809,320 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
   <div class="alert g" style="margin-top:20px"><div class="alert-icon">⏱️</div><div><div class="alert-title">Estimated total fix time with Alex: 2–2.5 hours</div><div class="alert-body">Book a dedicated CRM session with Alex. Walk through each deal together — contacts, companies, close dates, next steps. This brings his CRM from ~10% complete to ~80% complete in one sitting. Biggest risk: Duelbits £750K and Visit Abu Dhabi £1.2M are completely data-dark.</div></div></div>
 </div>
 
+<!-- SELLER CHECKLISTS -->
+<div id="tab-checklists" class="panel">
+  <div class="last-updated">Per-seller task checklists — <span>check off as you go, progress saves in browser</span></div>
+  <div class="alert y"><div class="alert-icon">⚠️</div><div><div class="alert-title">Critical finding: EVERY seller has 0 contacts linked to any deal in HubSpot</div><div class="alert-body">This is the single biggest CRM gap across the board. Prioritise contact linking in your session with each seller.</div></div></div>
+
+  <style>
+  .seller-cl{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:18px;overflow:hidden}
+  .seller-cl-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:var(--card)}
+  .seller-cl-header:hover{background:var(--card2)}
+  .seller-cl-name{font-size:15px;font-weight:800}.seller-cl-meta{font-size:11px;color:var(--muted);margin-top:2px}
+  .seller-cl-body{display:none;border-top:1px solid var(--border);padding:0}
+  .seller-cl.open .seller-cl-body{display:block}
+  .cl-section{padding:14px 20px;border-bottom:1px solid var(--border)}
+  .cl-section:last-child{border-bottom:none}
+  .cl-section-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--yellow);margin-bottom:10px}
+  .cl-item{display:flex;align-items:flex-start;gap:10px;padding:6px 0;cursor:pointer;border-radius:6px}
+  .cl-item:hover{background:rgba(255,255,255,.03)}
+  .cl-box{width:16px;height:16px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:1px;transition:all .2s;display:flex;align-items:center;justify-content:center;font-size:10px}
+  .cl-item.done .cl-box{background:var(--green);border-color:var(--green);color:#000}
+  .cl-item.done .cl-text{color:var(--muted);text-decoration:line-through}
+  .cl-text{font-size:12px;line-height:1.5}
+  .cl-sub{font-size:10px;color:var(--muted);margin-top:1px}
+  .cl-flag{font-size:10px;padding:1px 7px;border-radius:10px;font-weight:700;margin-left:6px;flex-shrink:0}
+  .cl-flag.r{background:rgba(255,77,109,.15);color:var(--red)}
+  .cl-flag.y{background:rgba(255,215,0,.15);color:var(--yellow)}
+  .cl-flag.g{background:rgba(0,200,150,.15);color:var(--green)}
+  .seller-progress{height:4px;background:var(--border);margin:0}
+  .seller-progress-fill{height:100%;background:var(--green);transition:width .3s}
+  </style>
+
+  <!-- ALLIE -->
+  <div class="seller-cl" id="cl-allie">
+    <div class="seller-cl-header" onclick="toggleCL('allie')">
+      <div><div class="seller-cl-name">Allie Greenwald <span style="color:var(--yellow);font-size:12px">$6.85M pipeline · 26 deals</span></div><div class="seller-cl-meta">US seller · Entertainment, Streaming, FMCG</div></div>
+      <span class="chev">▼</span>
+    </div>
+    <div class="seller-progress"><div class="seller-progress-fill" id="prog-allie" style="width:0%"></div></div>
+    <div class="seller-cl-body">
+      <div class="cl-section">
+        <div class="cl-section-title">📥 Data Inputting</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-d1')"><div class="cl-box">✓</div><div><div class="cl-text">Link contact records to all 26 open deals <span class="cl-flag r">CRITICAL</span></div><div class="cl-sub">0/26 deals have contacts — biggest CRM gap</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-d2')"><div class="cl-box">✓</div><div><div class="cl-text">Link company records to all open deals <span class="cl-flag r">CRITICAL</span></div><div class="cl-sub">STARZ, ABC, Hulu, Home Depot, Amazon, Disney, Clorox etc need companies attached</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-d3')"><div class="cl-box">✓</div><div><div class="cl-text">Add deal descriptions to all active deals <span class="cl-flag y">MISSING</span></div><div class="cl-sub">None of the 26 deals have a description field filled</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-d4')"><div class="cl-box">✓</div><div><div class="cl-text">Log call/meeting notes as activities in HubSpot</div><div class="cl-sub">notes_last_contacted blank on most deals</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📄 Missing Documents</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-m1')"><div class="cl-box">✓</div><div><div class="cl-text">Proposals/RFP responses uploaded to deal records</div><div class="cl-sub">STARZ Fightland, Amazon Park LaBrea, Paramount Passenger, ABC all have RFPs in progress</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-m2')"><div class="cl-box">✓</div><div><div class="cl-text">Signed agreements/IOs attached to Closed Won deals</div><div class="cl-sub">Check Q1 closed deals have paperwork on record</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-m3')"><div class="cl-box">✓</div><div><div class="cl-text">SharkNina: Media Days — brief/scope document</div><div class="cl-sub">$200K deal at 40% — needs brief documentation</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📅 Thursday/Monday Board Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-b1')"><div class="cl-box">✓</div><div><div class="cl-text">Update deal stages on all 26 active deals</div><div class="cl-sub">Several deals stuck at 5% stage with old close dates</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-b2')"><div class="cl-box">✓</div><div><div class="cl-text">Move Pepsi Q2 / STARZ / ABC to correct stage</div><div class="cl-sub">Check if these have progressed since last update</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-b3')"><div class="cl-box">✓</div><div><div class="cl-text">Archive or close-lost any dead 5% intro deals</div><div class="cl-sub">Danone, Snoonu, Coca-Cola intros from 2024 — still active?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📝 Weekly Summary Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-w1')"><div class="cl-box">✓</div><div><div class="cl-text">Update next steps on all deals in active stage (40%+)</div><div class="cl-sub">STARZ Black Cohort, United Healthcare, Amazon Prime — next steps missing</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-w2')"><div class="cl-box">✓</div><div><div class="cl-text">Log this week's calls and meetings in HubSpot</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-w3')"><div class="cl-box">✓</div><div><div class="cl-text">Flag any deals at risk or needing Rachel's support</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">🏢 Strategic Account Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-s1')"><div class="cl-box">✓</div><div><div class="cl-text">Disney/Universal/Paramount — key contact confirmed?</div><div class="cl-sub">These are strategic-tier clients; decision makers should be in CRM</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-s2')"><div class="cl-box">✓</div><div><div class="cl-text">ABC: Fall Premieres ($250K) — is brief received?</div><div class="cl-sub">Closes Jul 30 — check status and log update</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-s3')"><div class="cl-box">✓</div><div><div class="cl-text">Clorox Brita + Burt's Bees ($500K combined) — update?</div><div class="cl-sub">Both at 5% since Aug 2025 — qualify or close</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">✈️ Trips & Flights</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-t1')"><div class="cl-box">✓</div><div><div class="cl-text">POSSIBLE Miami (Apr 27–29) — confirmed attending</div><div class="cl-sub">Allie is on the attendee list · Hotel: Fontainebleau/Eden Roc</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-t2')"><div class="cl-box">✓</div><div><div class="cl-text">POSSIBLE Miami — 4 client meetings per day confirmed</div><div class="cl-sub">Add meetings to POSSIBLE Meeting Doc sheet</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-t3')"><div class="cl-box">✓</div><div><div class="cl-text">Cannes Lions (Jun 22–26) — 40% Q3 target by Jun 1</div><div class="cl-sub">Need $2M+ committed to Q3 to qualify</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'allie-t4')"><div class="cl-box">✓</div><div><div class="cl-text">Cannes — 5 meetings booked in advance</div><div class="cl-sub">Log in Cannes Client Meeting Schedule sheet</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MYLES -->
+  <div class="seller-cl" id="cl-myles">
+    <div class="seller-cl-header" onclick="toggleCL('myles')">
+      <div><div class="seller-cl-name">Myles Chilvers <span style="color:var(--yellow);font-size:12px">$3.29M pipeline · ~59 deals</span></div><div class="seller-cl-meta">UK seller · Gaming, Entertainment, Tech</div></div>
+      <span class="chev">▼</span>
+    </div>
+    <div class="seller-progress"><div class="seller-progress-fill" id="prog-myles" style="width:0%"></div></div>
+    <div class="seller-cl-body">
+      <div class="cl-section">
+        <div class="cl-section-title">📥 Data Inputting</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-d1')"><div class="cl-box">✓</div><div><div class="cl-text">Link contacts to all active deals (40%+) <span class="cl-flag r">CRITICAL</span></div><div class="cl-sub">0/59 deals have contacts linked — urgent across whole pipeline</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-d2')"><div class="cl-box">✓</div><div><div class="cl-text">Link company records to Warner Bros, Fortnite/Epic, PlayStation, Paramount, Liquid Advertising deals</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-d3')"><div class="cl-box">✓</div><div><div class="cl-text">Add £ amounts to zero-value deals (Peacock, Netflix, Mondelez etc)</div><div class="cl-sub">Many old deals show £0 — update or close</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-d4')"><div class="cl-box">✓</div><div><div class="cl-text">Close or archive all deals with 2024 close dates still open</div><div class="cl-sub">Sky: Publicis Intro, Sega: Havas, Netflix: Dentsu, Peacock: Initial Meet — from Dec 2024</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📄 Missing Documents</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-m1')"><div class="cl-box">✓</div><div><div class="cl-text">Warner Bros: Animal Friends ($500K at 40%) — proposal/IO on file?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-m2')"><div class="cl-box">✓</div><div><div class="cl-text">Fortnite: Save the World ($250K at 40%) — brief confirmed?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-m3')"><div class="cl-box">✓</div><div><div class="cl-text">Paramount: Passenger ($350K at 40%) — brief or proposal attached?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-m4')"><div class="cl-box">✓</div><div><div class="cl-text">Viral Moments April/May renewals — signed renewal docs attached to deals?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📅 Thursday/Monday Board Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-b1')"><div class="cl-box">✓</div><div><div class="cl-text">Move Viral Moments April Renewal (60%) to Closed Won if signed</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-b2')"><div class="cl-box">✓</div><div><div class="cl-text">Update stage on 2K: PGA intro ($60K at 5%) — active or dead?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-b3')"><div class="cl-box">✓</div><div><div class="cl-text">Review all 10%/5% stage deals — qualify or archive</div><div class="cl-sub">Travis Scott, Semrush, Subway Surfers, Prime Video Ricky Stanicky</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📝 Weekly Summary Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-w1')"><div class="cl-box">✓</div><div><div class="cl-text">Update next steps on Warner Bros Cut Off, Paramount Scary Movie 6, Passenger</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-w2')"><div class="cl-box">✓</div><div><div class="cl-text">Log Artisan April Fools outcome — deal closed or lost?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-w3')"><div class="cl-box">✓</div><div><div class="cl-text">Update Invideo 4.5 ($100K) status — call happened?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">🏢 Strategic Account Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-s1')"><div class="cl-box">✓</div><div><div class="cl-text">Epic Games/Fortnite — confirm key contact at Epic for strategic account</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-s2')"><div class="cl-box">✓</div><div><div class="cl-text">Warner Bros — confirm decision maker name + email in CRM</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-s3')"><div class="cl-box">✓</div><div><div class="cl-text">PlayStation: Wolverine ($200K) — who's the client contact?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">✈️ Trips & Flights</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-t1')"><div class="cl-box">✓</div><div><div class="cl-text">POSSIBLE Miami (Apr 27–29) — confirmed attending</div><div class="cl-sub">Myles is on attendee list</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-t2')"><div class="cl-box">✓</div><div><div class="cl-text">POSSIBLE Miami — 4 meetings/day minimum booked</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-t3')"><div class="cl-box">✓</div><div><div class="cl-text">Hakkasan dinner Apr 27 — confirmed?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'myles-t4')"><div class="cl-box">✓</div><div><div class="cl-text">Cannes — 40% Q3 committed by Jun 1 + 5 meetings booked</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALEXANDER -->
+  <div class="seller-cl" id="cl-alexander">
+    <div class="seller-cl-header" onclick="toggleCL('alexander')">
+      <div><div class="seller-cl-name">Alexander Sijpesteijn <span style="color:var(--yellow);font-size:12px">$3.08M pipeline · 15 deals</span></div><div class="seller-cl-meta">UK seller · Film, FMCG, Gambling, Travel</div></div>
+      <span class="chev">▼</span>
+    </div>
+    <div class="seller-progress"><div class="seller-progress-fill" id="prog-alexander" style="width:0%"></div></div>
+    <div class="seller-cl-body">
+      <div class="cl-section">
+        <div class="cl-section-title">📥 Data Inputting</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-d1')"><div class="cl-box">✓</div><div><div class="cl-text">Link contact to ALL 15 deals <span class="cl-flag r">CRITICAL — 0/15 done</span></div><div class="cl-sub">Carlsberg, Muller, Universal, Disney, Paramount, HBO, WB, IRN Bru, Goodwoof, Duelbits, Visit Abu Dhabi, Britvic</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-d2')"><div class="cl-box">✓</div><div><div class="cl-text">Link company records to all 15 deals <span class="cl-flag r">CRITICAL — 0/15 done</span></div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-d3')"><div class="cl-box">✓</div><div><div class="cl-text">Add descriptions to all deals <span class="cl-flag r">MISSING on all 15</span></div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-d4')"><div class="cl-box">✓</div><div><div class="cl-text">Update next steps on 13 deals (only WB Supergirl + Disney Winnie have them)</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📄 Missing Documents</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-m1')"><div class="cl-box">✓</div><div><div class="cl-text">Visit Abu Dhabi: FY26 Campaign ($1.2M) — IO or proposal on file?</div><div class="cl-sub">Close date was Dec 2025 — 91 days overdue</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-m2')"><div class="cl-box">✓</div><div><div class="cl-text">Duelbits: World Cup ($750K) — any signed agreement?</div><div class="cl-sub">Close date was Feb 2026 — 31 days overdue</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-m3')"><div class="cl-box">✓</div><div><div class="cl-text">Muller: Corner Collab ($280K) + FRIJJ ($125K) — brief/proposal attached?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-m4')"><div class="cl-box">✓</div><div><div class="cl-text">Carlsberg: ICD ($218K) + Britvic: Tango ($270K) — documentation in deal?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📅 Thursday/Monday Board Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-b1')"><div class="cl-box">✓</div><div><div class="cl-text">Reschedule all 11 overdue close dates <span class="cl-flag r">URGENT</span></div><div class="cl-sub">Jan/Feb/Mar close dates all in the past</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-b2')"><div class="cl-box">✓</div><div><div class="cl-text">Visit Abu Dhabi — still live or needs closing?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-b3')"><div class="cl-box">✓</div><div><div class="cl-text">Disney: Winnie the Pooh (60%, closes Apr 10) — where is this now?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📝 Weekly Summary Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-w1')"><div class="cl-box">✓</div><div><div class="cl-text">Log all calls/meetings from this week as activities</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-w2')"><div class="cl-box">✓</div><div><div class="cl-text">Update next steps to concrete actions with dates</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-w3')"><div class="cl-box">✓</div><div><div class="cl-text">Flag Paramount: Jackass + Goodwoof — are these still moving?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">🏢 Strategic Account Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-s1')"><div class="cl-box">✓</div><div><div class="cl-text">Visit Abu Dhabi ($1.2M) — who is the decision maker?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-s2')"><div class="cl-box">✓</div><div><div class="cl-text">Carlsberg/Muller/Britvic — FMCG account contacts needed</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-s3')"><div class="cl-box">✓</div><div><div class="cl-text">Disney/Warner/Universal/Paramount/HBO — confirm key contact per brand</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">✈️ Trips & Flights</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-t1')"><div class="cl-box">✓</div><div><div class="cl-text">POSSIBLE Miami (Apr 27–29) — is Alex attending?</div><div class="cl-sub">Not on confirmed attendee list — confirm status</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-t2')"><div class="cl-box">✓</div><div><div class="cl-text">Cannes Lions — 40% Q3 committed by Jun 1</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'alex-t3')"><div class="cl-box">✓</div><div><div class="cl-text">Any client entertainment or travel to log?</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DUSTIN -->
+  <div class="seller-cl" id="cl-dustin">
+    <div class="seller-cl-header" onclick="toggleCL('dustin')">
+      <div><div class="seller-cl-name">Dustin Thaler <span style="color:var(--yellow);font-size:12px">$1.9M pipeline</span></div><div class="seller-cl-meta">US seller · Mixed verticals</div></div>
+      <span class="chev">▼</span>
+    </div>
+    <div class="seller-progress"><div class="seller-progress-fill" id="prog-dustin" style="width:0%"></div></div>
+    <div class="seller-cl-body">
+      <div class="cl-section">
+        <div class="cl-section-title">📥 Data Inputting</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-d1')"><div class="cl-box">✓</div><div><div class="cl-text">Link contacts to all open deals <span class="cl-flag r">CRITICAL</span></div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-d2')"><div class="cl-box">✓</div><div><div class="cl-text">Link company records to open deals</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-d3')"><div class="cl-box">✓</div><div><div class="cl-text">Add amounts to any £0 pipeline deals</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-d4')"><div class="cl-box">✓</div><div><div class="cl-text">Update deal descriptions for all active deals</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📄 Missing Documents</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-m1')"><div class="cl-box">✓</div><div><div class="cl-text">Check proposals are saved to relevant deal records</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-m2')"><div class="cl-box">✓</div><div><div class="cl-text">Any signed IOs to attach to won deals?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📅 Thursday/Monday Board Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-b1')"><div class="cl-box">✓</div><div><div class="cl-text">Review all deal stages — any to move forward or close?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-b2')"><div class="cl-box">✓</div><div><div class="cl-text">Update close dates on all deals</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📝 Weekly Summary Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-w1')"><div class="cl-box">✓</div><div><div class="cl-text">Next steps updated on all active deals</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-w2')"><div class="cl-box">✓</div><div><div class="cl-text">All calls and meetings logged in HubSpot this week</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">🏢 Strategic Account Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-s1')"><div class="cl-box">✓</div><div><div class="cl-text">Any strategic accounts in pipeline — contacts confirmed?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-s2')"><div class="cl-box">✓</div><div><div class="cl-text">Account summaries up to date on SharePoint?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">✈️ Trips & Flights</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-t1')"><div class="cl-box">✓</div><div><div class="cl-text">POSSIBLE Miami (Apr 27–29) — confirmed attending</div><div class="cl-sub">Dustin is on the attendee list</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-t2')"><div class="cl-box">✓</div><div><div class="cl-text">POSSIBLE Miami — 4 client meetings/day booked</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-t3')"><div class="cl-box">✓</div><div><div class="cl-text">Cannes Lions — criteria on track?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'dustin-t4')"><div class="cl-box">✓</div><div><div class="cl-text">Any other trips to plan or log?</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NINA -->
+  <div class="seller-cl" id="cl-nina">
+    <div class="seller-cl-header" onclick="toggleCL('nina')">
+      <div><div class="seller-cl-name">Nina Kammer <span style="color:var(--yellow);font-size:12px">$1.45M pipeline</span></div><div class="seller-cl-meta">UK seller · FMCG, Entertainment</div></div>
+      <span class="chev">▼</span>
+    </div>
+    <div class="seller-progress"><div class="seller-progress-fill" id="prog-nina" style="width:0%"></div></div>
+    <div class="seller-cl-body">
+      <div class="cl-section">
+        <div class="cl-section-title">📥 Data Inputting</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-d1')"><div class="cl-box">✓</div><div><div class="cl-text">Link contacts to all open deals <span class="cl-flag r">CRITICAL</span></div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-d2')"><div class="cl-box">✓</div><div><div class="cl-text">Link company records to all open deals</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-d3')"><div class="cl-box">✓</div><div><div class="cl-text">Deal descriptions filled for all active deals</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-d4')"><div class="cl-box">✓</div><div><div class="cl-text">Log all recent contact activity in HubSpot</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📄 Missing Documents</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-m1')"><div class="cl-box">✓</div><div><div class="cl-text">Proposals saved to active deal records</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-m2')"><div class="cl-box">✓</div><div><div class="cl-text">Any Q1 closed deals — signed IOs on file?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📅 Thursday/Monday Board Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-b1')"><div class="cl-box">✓</div><div><div class="cl-text">All deal stages reflect current status</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-b2')"><div class="cl-box">✓</div><div><div class="cl-text">Close dates updated and realistic</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📝 Weekly Summary Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-w1')"><div class="cl-box">✓</div><div><div class="cl-text">Next steps updated on all active deals</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-w2')"><div class="cl-box">✓</div><div><div class="cl-text">Calls and meetings logged as activities</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">🏢 Strategic Account Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-s1')"><div class="cl-box">✓</div><div><div class="cl-text">Strategic account contacts confirmed in CRM</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-s2')"><div class="cl-box">✓</div><div><div class="cl-text">Account summaries up to date</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">✈️ Trips & Flights</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-t1')"><div class="cl-box">✓</div><div><div class="cl-text">POSSIBLE Miami (Apr 27–29) — confirmed attending</div><div class="cl-sub">Nina is on the attendee list</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-t2')"><div class="cl-box">✓</div><div><div class="cl-text">POSSIBLE Miami — 4 client meetings/day booked</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'nina-t3')"><div class="cl-box">✓</div><div><div class="cl-text">Cannes Lions — on track for criteria?</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BRIANNA -->
+  <div class="seller-cl" id="cl-brianna">
+    <div class="seller-cl-header" onclick="toggleCL('brianna')">
+      <div><div class="seller-cl-name">Brianna Simons <span style="color:var(--yellow);font-size:12px">$1.4M pipeline</span></div><div class="seller-cl-meta">US seller · Entertainment, Tech</div></div>
+      <span class="chev">▼</span>
+    </div>
+    <div class="seller-progress"><div class="seller-progress-fill" id="prog-brianna" style="width:0%"></div></div>
+    <div class="seller-cl-body">
+      <div class="cl-section">
+        <div class="cl-section-title">📥 Data Inputting</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-d1')"><div class="cl-box">✓</div><div><div class="cl-text">Link contacts to all open deals <span class="cl-flag r">CRITICAL</span></div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-d2')"><div class="cl-box">✓</div><div><div class="cl-text">Link company records to all open deals</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-d3')"><div class="cl-box">✓</div><div><div class="cl-text">Deal descriptions and amounts filled for all deals</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-d4')"><div class="cl-box">✓</div><div><div class="cl-text">Log all recent contact activity</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📄 Missing Documents</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-m1')"><div class="cl-box">✓</div><div><div class="cl-text">Proposals saved to deal records</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-m2')"><div class="cl-box">✓</div><div><div class="cl-text">Q1 closed deals — signed paperwork on file?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📅 Thursday/Monday Board Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-b1')"><div class="cl-box">✓</div><div><div class="cl-text">All stages current and accurate</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-b2')"><div class="cl-box">✓</div><div><div class="cl-text">Close dates set correctly</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">📝 Weekly Summary Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-w1')"><div class="cl-box">✓</div><div><div class="cl-text">Next steps updated on all active deals</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-w2')"><div class="cl-box">✓</div><div><div class="cl-text">Activity logged for all meetings this week</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">🏢 Strategic Account Update</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-s1')"><div class="cl-box">✓</div><div><div class="cl-text">Strategic account contacts confirmed in CRM</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-s2')"><div class="cl-box">✓</div><div><div class="cl-text">Any new strategic accounts to add?</div></div></div>
+      </div>
+      <div class="cl-section">
+        <div class="cl-section-title">✈️ Trips & Flights</div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-t1')"><div class="cl-box">✓</div><div><div class="cl-text">POSSIBLE Miami — is Brianna attending?</div><div class="cl-sub">Not on confirmed list — confirm status</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-t2')"><div class="cl-box">✓</div><div><div class="cl-text">Cannes Lions — criteria tracking?</div></div></div>
+        <div class="cl-item" onclick="toggleCLItem(this,'bri-t3')"><div class="cl-box">✓</div><div><div class="cl-text">Any other travel to plan or log?</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert b" style="margin-top:8px"><div class="alert-icon">💡</div><div><div class="alert-title">Checklist saves in your browser automatically</div><div class="alert-body">Tick items as you complete them in seller sessions. Progress resets if you clear browser data. Use the CRM Audit tab for Alexander's full data breakdown.</div></div></div>
+</div>
+
 <!-- SKILLS -->
 <div id="tab-skills" class="panel">
   <div class="last-updated">Claude prompt shortcuts — <span>copy & use in Claude Code or any AI chat</span></div>
@@ -888,6 +1203,38 @@ function showTab(id){
 }
 function toggleDS(header){header.parentElement.classList.toggle('open')}
 function toggleCG(header){header.parentElement.classList.toggle('open')}
+function toggleCL(id){document.getElementById('cl-'+id).classList.toggle('open')}
+function toggleCLItem(item,key){
+  item.classList.toggle('done');
+  item.querySelector('.cl-box').textContent=item.classList.contains('done')?'✓':'✓';
+  const s=JSON.parse(localStorage.getItem('pubity-cl')||'{}');
+  s[key]=item.classList.contains('done');
+  localStorage.setItem('pubity-cl',JSON.stringify(s));
+  updateCLProgress();
+}
+function updateCLProgress(){
+  const sellers=['allie','myles','alexander','dustin','nina','brianna'];
+  sellers.forEach(s=>{
+    const card=document.getElementById('cl-'+s);
+    if(!card)return;
+    const items=card.querySelectorAll('.cl-item');
+    const done=card.querySelectorAll('.cl-item.done').length;
+    const pct=items.length?Math.round(done/items.length*100):0;
+    const bar=document.getElementById('prog-'+s);
+    if(bar)bar.style.width=pct+'%';
+  });
+}
+window.addEventListener('load',()=>{
+  const s=JSON.parse(localStorage.getItem('pubity-cl')||'{}');
+  Object.keys(s).forEach(key=>{
+    if(!s[key])return;
+    document.querySelectorAll('.cl-item').forEach(item=>{
+      const fn=item.getAttribute('onclick')||'';
+      if(fn.includes("'"+key+"'")){item.classList.add('done');}
+    });
+  });
+  updateCLProgress();
+});
 function toggleCheck(item){
   item.classList.toggle('checked');
   const i=Array.from(document.querySelectorAll('.check-item')).indexOf(item);
